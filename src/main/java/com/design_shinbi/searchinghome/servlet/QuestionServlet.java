@@ -76,6 +76,7 @@ public class QuestionServlet extends HttpServlet {
                     dao.save(scoreRecord);
                     
                     session.setAttribute("scoreSaved", true);
+                    request.setAttribute("score", scoreRecord);
                 } catch (Exception e) {
                     throw new ServletException("スコア保存時にエラーが発生しました", e);
                 }
