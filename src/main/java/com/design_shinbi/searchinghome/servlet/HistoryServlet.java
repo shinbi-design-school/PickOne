@@ -11,17 +11,25 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import com.design_shinbi.searchinghome.model.Const;
 import com.design_shinbi.searchinghome.model.dao.ScoreDAO;
 import com.design_shinbi.searchinghome.model.entity.Score;
+import com.design_shinbi.searchinghome.model.entity.User;
 import com.design_shinbi.searchinghome.util.DBUtil;
 
 @WebServlet("/history")
 public class HistoryServlet extends HttpServlet {
+	
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try (Connection connection = DBUtil.connect()) {
             HttpSession session = request.getSession();
-            int userId = (int) session.getAttribute("userId");
+            User user = (User)session.getAttribute(Const.LOGIN_USER_KEY);
+            if(user == null) {
+            	request.getRequestDispatcher("/login").forward(request, response);
+            	return;
+            }
+            int userId = user.getId();
 
             ScoreDAO dao = new ScoreDAO(connection);
             List<Score> history = dao.findByUserId(userId);

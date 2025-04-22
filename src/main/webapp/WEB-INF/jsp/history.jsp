@@ -12,6 +12,14 @@
 </head>
 <body>
     <h1>あなたのスコア履歴</h1>
+    
+    <%
+        if(history == null || history.isEmpty()){
+    %>
+        <p>履歴がありません。</p>
+    <%
+        } else {
+    %>
 
     <table border="1">
         <tr>
@@ -32,7 +40,12 @@
             }
         %>
     </table>
+    <%
+        }
+    %>
 
-    <p><a href="index.jsp">トップへ戻る</a></p>
+    <form action="top" method="get">
+            <input type="submit" class="btn" value="トップに戻る">
+    </form>
 </body>
 </html>

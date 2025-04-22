@@ -69,6 +69,9 @@
 
             <input type="submit" value="ログイン">
         </form>
+        <form action="register" method="get">
+            <input type="submit" value="新規登録">
+        </form>
     </div>
 
 </body>

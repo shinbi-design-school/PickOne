@@ -86,7 +86,7 @@
         </form>
 
         <!-- ログアウトボタン -->
-        <form action="logout" method="post">
+        <form action="logout" method="get">
             <input type="submit" class="btn" style="background-color: #f44336;" value="ログアウト">
         </form>
     </div>

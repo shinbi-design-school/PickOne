@@ -13,28 +13,40 @@
 <body>
     <h1>ランキング（上位10位）</h1>
 
-    <table border="1">
-        <tr>
-            <th>順位</th>
-            <th>ユーザーID</th>
-            <th>スコア</th>
-            <th>プレイ日時</th>
-        </tr>
-        <%
-            int rank = 1;
-            for(Score score : ranking) {
-        %>
+    <%
+        if (ranking == null || ranking.isEmpty()) {
+    %>
+        <p>現在、ランキングのデータがありません。</p>
+    <%
+        } else {
+    %>
+        <table border="1">
+            <tr>
+                <th>順位</th>
+                <th>ユーザーID</th>
+                <th>スコア</th>
+                <th>プレイ日時</th>
+            </tr>
+            <%
+                int rank = 1;
+                for (Score score : ranking) {
+            %>
             <tr>
                 <td><%= rank++ %></td>
                 <td><%= score.getUserId() %></td>
                 <td><%= score.getScore() %></td>
                 <td><%= score.getPlayedAt() %></td>
             </tr>
-        <%
-            }
-        %>
-    </table>
+            <%
+                }
+            %>
+        </table>
+    <%
+        }
+    %>
 
-    <p><a href="index.jsp">トップへ戻る</a></p>
+    <form action="top" method="get">
+        <input type="submit" class="btn" value="トップに戻る">
+    </form>
 </body>
 </html>
