@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +74,23 @@ public class ScoreDAO {
 				);
 			list.add(score);
 		}
+		return list;
+	}
+	
+	public List<Score> findAllScore() throws SQLException{
+		List<Score> list = new ArrayList<Score>();
+		String sql = "SELECT * FROM scores ORDER BY score DESC, played_at ASC LIMIT";
+		Statement statement = this.connection.createStatement();
+		ResultSet rs = statement.executeQuery(sql);
+		while(rs.next()) {
+			Score score = new Score(
+					rs.getInt("id"),
+					rs.getInt("user_id"),
+					rs.getInt("score"),
+					rs.getTimestamp("played_at").toLocalDateTime()
+					);
+			list.add(score);
+			}
 		return list;
 	}
 }

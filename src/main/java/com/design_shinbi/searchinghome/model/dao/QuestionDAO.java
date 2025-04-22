@@ -47,6 +47,20 @@ public class QuestionDAO {
 	        
 	        return list;
 	    }
+	
+	public List<Question> find10Questions() throws SQLException{
+		List<Question> list = new ArrayList<>();
+		String sql = "SELECT * FROM questions ORDER BY RAND() LIMIT 11";
+		Statement statement = this.connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(sql);
+		while(resultSet.next()) {
+			Question q = createQuestion(resultSet);
+			list.add(q);
+		}
+		resultSet.close();
+		statement.close();
+		return list;
+	}
 	 
 	 public Question findQuestionById(int id) throws SQLException {
 	        String sql = "SELECT * FROM questions WHERE id = ?";
@@ -103,9 +117,9 @@ public class QuestionDAO {
 	 
 	 public int deleteQuestion(int id) throws SQLException {
 	        String sql = "DELETE FROM questions WHERE id=?";
-	        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-	            stmt.setInt(1, id);
-	            return stmt.executeUpdate();
+	        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+	            statement.setInt(1, id);
+	            return statement.executeUpdate();
 	        }
 	    }
 	 

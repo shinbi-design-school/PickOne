@@ -87,6 +87,16 @@ public class Question {
 		this.imageUrl = imageUrl;
 	}
 	
+	public String getChoice(int index) {
+	    switch(index) {
+	        case 0: return getChoice1();
+	        case 1: return getChoice2();
+	        case 2: return getChoice3();
+	        case 3: return getChoice4();
+	        default: return "不正な選択肢";
+	    }
+	}
+
 	@Override
 	public String toString() {
 	    return "Question {" +
@@ -101,6 +111,4 @@ public class Question {
 	           ", imageUrl='" + imageUrl + '\'' +
 	           '}';
 	}
-
-
 }

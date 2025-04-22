@@ -30,82 +30,85 @@ public class QuestionServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        
+
         User user = (User) session.getAttribute(Const.LOGIN_USER_KEY);
         if (user == null) {
             response.sendRedirect("login.jsp");
             return;
         }
 
-        // セッションにクイズリストがない場合はDBから取得して設定
         List<Question> list = (List<Question>) session.getAttribute("list");
         if (list == null) {
             try (Connection connection = DBUtil.connect()) {
                 QuestionDAO dao = new QuestionDAO(connection);
-                
-                list = dao.findAll();
+                list = dao.find10Questions();
                 if (list.isEmpty()) {
                     throw new ServletException("問題が存在しません");
                 }
-                Collections.shuffle(list); 
-                session.setAttribute("list", list); 
+                Collections.shuffle(list);
+                session.setAttribute("list", list);
             } catch (ClassNotFoundException | SQLException e) {
                 throw new ServletException("DB接続または取得エラー", e);
             }
         }
 
-        // currentIndexとscoreをセッションから取得し、nullの場合は初期値を設定
         Integer currentIndex = (Integer) session.getAttribute("currentIndex");
         if (currentIndex == null) {
-            currentIndex = 0; // 初期値を設定
+            currentIndex = 0;
         }
 
         Integer score = (Integer) session.getAttribute("score");
         if (score == null) {
-            score = 0; // 初期値を設定
+            score = 0;
         }
 
-        // 出題終了 → 結果ページへ
+        // 最後の問題が終わっていればリザルトへ
         if (currentIndex >= list.size()) {
             Score scoreRecord;
 
-            // 一度だけスコア登録
             if (session.getAttribute("scoreSaved") == null) {
                 try (Connection connection = DBUtil.connect()) {
-                    User loginUser = (User) session.getAttribute("loginUser");
-                    int userId = loginUser.getId();
                     ScoreDAO dao = new ScoreDAO(connection);
-                    scoreRecord = new Score(userId, score);
+                    scoreRecord = new Score(user.getId(), score);
                     dao.save(scoreRecord);
+                    scoreRecord.setPlayedAt(java.time.LocalDateTime.now());
 
-                    scoreRecord.setPlayedAt(java.time.LocalDateTime.now()); // 表示用に追加
                     session.setAttribute("scoreSaved", true);
                     request.setAttribute("score", scoreRecord);
                 } catch (Exception e) {
-                    throw new ServletException("スコア保存時にエラーが発生しました", e);
+                    throw new ServletException("スコア保存エラー", e);
                 }
             } else {
-                // セッションから取得できるスコアを Score に再構築
                 scoreRecord = new Score();
                 scoreRecord.setScore(score);
-                scoreRecord.setPlayedAt(java.time.LocalDateTime.now()); // 任意
+                scoreRecord.setPlayedAt(java.time.LocalDateTime.now());
             }
 
             request.setAttribute("score", scoreRecord);
             request.setAttribute("user", user);
-            request.getRequestDispatcher("/WEB-INF/jsp/result.jsp").forward(request, response);
             session.removeAttribute("list");
             session.removeAttribute("currentIndex");
             session.removeAttribute("score");
             session.removeAttribute("scoreSaved");
+
+            request.getRequestDispatcher("/WEB-INF/jsp/result.jsp").forward(request, response);
             return;
         }
 
+        // 「次の問題へ」からの遷移なら currentIndex++
+        if ("true".equals(request.getParameter("proceed"))) {
+            currentIndex++;
+            session.setAttribute("currentIndex", currentIndex);
+        }
 
-        // 現在の問題を表示
-        Question question = list.get(currentIndex);
-        request.setAttribute("question", question);
-        request.getRequestDispatcher("/WEB-INF/jsp/question.jsp").forward(request, response);
+        // 再取得
+        if (currentIndex < list.size()) {
+            Question question = list.get(currentIndex);
+            request.setAttribute("question", question);
+            request.getRequestDispatcher("/WEB-INF/jsp/question.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("question");
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -120,11 +123,11 @@ public class QuestionServlet extends HttpServlet {
         Integer currentIndex = (Integer) session.getAttribute("currentIndex");
         Integer score = (Integer) session.getAttribute("score");
 
-        if (list == null) {
+        if (list == null || list.size() < 10) {
             // listがnullの場合はDBから問題を取得して設定
             try (Connection connection = DBUtil.connect()) {
                 QuestionDAO dao = new QuestionDAO(connection);
-                list = dao.findAll();
+                list = dao.find10Questions();
                 if (list.isEmpty()) {
                     throw new ServletException("問題が存在しません");
                 }
@@ -143,7 +146,7 @@ public class QuestionServlet extends HttpServlet {
         }
 
         if (currentIndex >= list.size()) {
-        	response.sendRedirect("question");
+            response.sendRedirect("question");
             return;
         }
 
@@ -153,9 +156,22 @@ public class QuestionServlet extends HttpServlet {
                 int selected = Integer.parseInt(answerStr);
                 Question question = list.get(currentIndex);
 
-                if (selected == question.getCorrectChoice()) {
+                boolean isCorrect = selected == question.getCorrectChoice();
+                if (isCorrect) {
                     score += 10;
                 }
+
+                session.setAttribute("score", score);
+                boolean isLastQuestion = (currentIndex + 1 >= list.size());
+                // 選択した回答と正誤を `answer.jsp` に渡す
+                request.setAttribute("question", question);
+                request.setAttribute("selected", selected);
+                request.setAttribute("isCorrect", isCorrect);
+                request.setAttribute("isLastQuestion", isLastQuestion);
+
+                // 次の問題に進むための処理（answer.jspに遷移）
+                request.getRequestDispatcher("/WEB-INF/jsp/answer.jsp").forward(request, response);
+                return;
 
             } catch (NumberFormatException e) {
                 // 無効な選択肢（未選択など）→スキップ処理も可
@@ -166,10 +182,12 @@ public class QuestionServlet extends HttpServlet {
             log("選択肢が選ばれませんでした");
         }
 
+        // 正常な処理後、次の問題に進む
         currentIndex++;
         session.setAttribute("currentIndex", currentIndex);
         session.setAttribute("score", score);
 
         response.sendRedirect("question");
     }
+
 }
