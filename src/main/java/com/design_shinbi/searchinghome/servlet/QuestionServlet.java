@@ -80,6 +80,7 @@ public class QuestionServlet extends HttpServlet {
 
                     scoreRecord.setPlayedAt(java.time.LocalDateTime.now()); // 表示用に追加
                     session.setAttribute("scoreSaved", true);
+                    request.setAttribute("score", scoreRecord);
                 } catch (Exception e) {
                     throw new ServletException("スコア保存時にエラーが発生しました", e);
                 }
