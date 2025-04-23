@@ -67,11 +67,7 @@
         </div>
 
         <!-- クイズ開始フォーム -->
-        <form action="question" method="post">
-            <div class="player-name">
-                <label for="catName">猫の名前を入力してください：</label>
-                <input type="text" id="catName" name="catName" placeholder="例：しんび" required>
-            </div>
+        <form action="naming" method="get">
             <input type="submit" class="btn" value="クイズを始める">
         </form>
 

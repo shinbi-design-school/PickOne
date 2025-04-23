@@ -72,7 +72,7 @@ public class QuestionServlet extends HttpServlet {
                     scoreRecord = new Score(user.getId(), score);
                     dao.save(scoreRecord);
                     scoreRecord.setPlayedAt(java.time.LocalDateTime.now());
-
+                    session.setAttribute("score", scoreRecord);
                     session.setAttribute("scoreSaved", true);
                     request.setAttribute("score", scoreRecord);
                 } catch (Exception e) {
@@ -83,15 +83,60 @@ public class QuestionServlet extends HttpServlet {
                 scoreRecord.setScore(score);
                 scoreRecord.setPlayedAt(java.time.LocalDateTime.now());
             }
+            String epilogueText = "";
+            String epilogueTitle = "";
+            String catName = (String)request.getSession().getAttribute("catName");
 
+            if (score >= 70) {
+                epilogueTitle = "エピローグ";
+                epilogueText =  "リン…リン…♪\r\n"
+                		+ catName + "ちゃんが持っていた鈴が、ひときわ明るく鳴り響きました。\r\n"
+                		+ "\r\n"
+                		+ "その音に導かれるように、森の木々の間から優しい光が差し込みます。\r\n"
+                		+ "\r\n"
+                		+ "「あっ…この道、見たことある！」\r\n"
+                		+ "\r\n"
+                		+ "光の道を進んでいくと、懐かしい風景がどんどん近づいてきて――\r\n"
+                		+ "\r\n"
+                		+ "「" + catName + "ちゃんっっ！」\r\n"
+                		+ "\r\n"
+                		+ "森のはずれで、お母さんが笑顔で手を振って待っていました。\r\n"
+                		+ "\r\n"
+                		+ "「よく頑張ったね。鈴の力と、" + catName + "ちゃんの力でちゃんと帰ってこれたんだね」\r\n"
+                		+ "\r\n"
+                		+ "ぎゅっと抱きしめられて、安心と嬉しさが胸いっぱいに広がります。\r\n"
+                		+ "\r\n"
+                		+ "こうして、" + catName + "ちゃんちゃんのちょっぴり不思議な一日は、\r\n"
+                		+ "あたたかい夕陽とともに、そっと幕を下ろしました。\r\n"
+                		+ "\r\n"
+                		+ "";
+            } else {
+            	epilogueTitle = "ゲームオーバー";
+                epilogueText ="ゲームオーバー\r\n"
+                		+ "「うぅ…ダメだったのかな…家に帰りたい…お母さんに会いたい…」\r\n"
+                		+ "\r\n"
+                		+ "がっかりしてうつむいた" + catName + "ちゃんのまわりに、森の風がふわっと吹き抜けます。\r\n"
+                		+ "\r\n"
+                		+ "でも、森はまだそこにいて、やさしく見守ってくれているようでした。\r\n"
+                		+ "\r\n"
+                		+ "そのとき、鈴がかすかに光って、こうつぶやいたように聞こえました――\r\n"
+                		+ "\r\n"
+                		+ "「だいじょうぶ。君なら、きっとまたがんばれるよ」\r\n"
+                		+ "\r\n"
+                		+ "たしかに道は見つからなかったけれど、" +catName + "ちゃんの冒険はここで終わりじゃない。\r\n"
+                		+ "森はいつでも君を待ってる。次はもっと遠くまで、きっと行けるよ。\r\n"
+                		+ "\r\n"
+                		+ "そう思ったら、ちょっぴり元気が出てきたのでした。\r\n"
+                		+ "";
+            }
+
+            session.setAttribute("epilogueTitle", epilogueTitle);
+            session.setAttribute("catName", catName);
+            session.setAttribute("epilogueText", epilogueText);
+            session.setAttribute("score", scoreRecord);
             request.setAttribute("score", scoreRecord);
             request.setAttribute("user", user);
-            session.removeAttribute("list");
-            session.removeAttribute("currentIndex");
-            session.removeAttribute("score");
-            session.removeAttribute("scoreSaved");
-
-            request.getRequestDispatcher("/WEB-INF/jsp/result.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/jsp/epilogue.jsp").forward(request, response);
             return;
         }
 
@@ -162,12 +207,11 @@ public class QuestionServlet extends HttpServlet {
                 }
 
                 session.setAttribute("score", score);
-                boolean isLastQuestion = (currentIndex + 1 >= list.size());
                 // 選択した回答と正誤を `answer.jsp` に渡す
                 request.setAttribute("question", question);
                 request.setAttribute("selected", selected);
                 request.setAttribute("isCorrect", isCorrect);
-                request.setAttribute("isLastQuestion", isLastQuestion);
+                request.setAttribute("isLastQuestion", currentIndex + 1 >= list.size());
 
                 // 次の問題に進むための処理（answer.jspに遷移）
                 request.getRequestDispatcher("/WEB-INF/jsp/answer.jsp").forward(request, response);

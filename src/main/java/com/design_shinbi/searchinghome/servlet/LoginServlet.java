@@ -60,8 +60,13 @@ public class LoginServlet extends HttpServlet {
                 request.setAttribute("error", error);
                 jsp = "/WEB-INF/jsp/login.jsp";
             } else {
-                HttpSession session = request.getSession();
-                session.setAttribute(Const.LOGIN_USER_KEY, user);
+            	HttpSession oldSession = request.getSession(false);
+            	if(oldSession != null) {
+            		oldSession.invalidate();
+            	}
+            	
+                HttpSession newSession = request.getSession(true);
+                newSession.setAttribute(Const.LOGIN_USER_KEY, user);
                 jsp = "/WEB-INF/jsp/top.jsp";
             }
 

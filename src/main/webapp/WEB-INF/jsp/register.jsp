@@ -22,6 +22,9 @@
             <button type="submit">登録する</button>
         </p>
     </form>
+    <form action="login" method="get">
+    <p><button type="submit">ログイン</button>
+    </form>
 
     <p style="color:red;"><%= request.getAttribute("error") != null ? request.getAttribute("error") : "" %></p>
 </body>

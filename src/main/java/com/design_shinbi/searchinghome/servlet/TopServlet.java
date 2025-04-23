@@ -29,7 +29,7 @@ public class TopServlet extends HttpServlet {
 	    	
 	    	String jsp = null;
 	    	if(user == null) {
-	    		jsp = "/WEB-INF/jsp/login.jsp";
+	    		jsp = "/WEB-INF/jsp/register.jsp";
 	    	}
 	    	else {
 	    		try{
@@ -50,18 +50,21 @@ public class TopServlet extends HttpServlet {
 	    		throw new ServletException(e);
 	    	}
 	    }
-
+	    
+	    @Override
 	    protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
+	        HttpSession session = request.getSession(false);
+	        if (session != null) {
+	            session.removeAttribute("score");
+	            session.removeAttribute("list");
+	            session.removeAttribute("currentIndex");
+	            session.removeAttribute("scoreSaved");
+	            session.removeAttribute("epilogueText");
+	            session.removeAttribute("catName"); // 猫の名前もリセットするなら
+	        }
 
-	        request.setCharacterEncoding("UTF-8");
-
-	        String catName = request.getParameter("catName");
-
-	        HttpSession session = request.getSession();
-	        session.setAttribute("catName", catName);
-
-	        response.sendRedirect("question"); 
+	        request.getRequestDispatcher("/WEB-INF/jsp/top.jsp").forward(request, response); // トップ画面にリダイレクト
 	    }
 	}
 

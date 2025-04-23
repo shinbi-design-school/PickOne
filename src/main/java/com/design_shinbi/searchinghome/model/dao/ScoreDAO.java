@@ -22,8 +22,6 @@ public class ScoreDAO {
 		String sql = "INSERT INTO scores(user_id, score, played_at)"
 				+ " VALUES(?, ?, ?)";
 		
-		System.out.println("Saving score for userId=" + score.getUserId());
-		
 		PreparedStatement statement = this.connection.prepareStatement(sql);
 		
 		statement.setInt(1, score.getUserId());
