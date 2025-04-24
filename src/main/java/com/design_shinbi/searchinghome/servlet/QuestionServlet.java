@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -30,8 +33,8 @@ public class QuestionServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-
         User user = (User) session.getAttribute(Const.LOGIN_USER_KEY);
+
         if (user == null) {
             response.sendRedirect("login.jsp");
             return;
@@ -41,7 +44,7 @@ public class QuestionServlet extends HttpServlet {
         if (list == null) {
             try (Connection connection = DBUtil.connect()) {
                 QuestionDAO dao = new QuestionDAO(connection);
-                list = dao.find10Questions();
+                list = dao.find15Questions();
                 if (list.isEmpty()) {
                     throw new ServletException("問題が存在しません");
                 }
@@ -62,7 +65,6 @@ public class QuestionServlet extends HttpServlet {
             score = 0;
         }
 
-        // 最後の問題が終わっていればリザルトへ
         if (currentIndex >= list.size()) {
             Score scoreRecord;
 
@@ -74,7 +76,14 @@ public class QuestionServlet extends HttpServlet {
                     scoreRecord.setPlayedAt(java.time.LocalDateTime.now());
                     session.setAttribute("score", scoreRecord);
                     session.setAttribute("scoreSaved", true);
-                    request.setAttribute("score", scoreRecord);
+
+                    // セッションリセット
+                    session.removeAttribute("list");
+                    session.removeAttribute("items");
+                    session.removeAttribute("score");
+                    session.removeAttribute("correctStreak");
+                    session.removeAttribute("currentIndex");
+
                 } catch (Exception e) {
                     throw new ServletException("スコア保存エラー", e);
                 }
@@ -83,51 +92,29 @@ public class QuestionServlet extends HttpServlet {
                 scoreRecord.setScore(score);
                 scoreRecord.setPlayedAt(java.time.LocalDateTime.now());
             }
-            String epilogueText = "";
-            String epilogueTitle = "";
-            String catName = (String)request.getSession().getAttribute("catName");
+
+            // エピローグ処理
+            String catName = (String) session.getAttribute("catName");
+            String epilogueText;
+            String epilogueTitle;
 
             if (score >= 70) {
                 epilogueTitle = "エピローグ";
-                epilogueText =  "リン…リン…♪\r\n"
-                		+ catName + "ちゃんが持っていた鈴が、ひときわ明るく鳴り響きました。\r\n"
-                		+ "\r\n"
-                		+ "その音に導かれるように、森の木々の間から優しい光が差し込みます。\r\n"
-                		+ "\r\n"
-                		+ "「あっ…この道、見たことある！」\r\n"
-                		+ "\r\n"
-                		+ "光の道を進んでいくと、懐かしい風景がどんどん近づいてきて――\r\n"
-                		+ "\r\n"
-                		+ "「" + catName + "ちゃんっっ！」\r\n"
-                		+ "\r\n"
-                		+ "森のはずれで、お母さんが笑顔で手を振って待っていました。\r\n"
-                		+ "\r\n"
-                		+ "「よく頑張ったね。鈴の力と、" + catName + "ちゃんの力でちゃんと帰ってこれたんだね」\r\n"
-                		+ "\r\n"
-                		+ "ぎゅっと抱きしめられて、安心と嬉しさが胸いっぱいに広がります。\r\n"
-                		+ "\r\n"
-                		+ "こうして、" + catName + "ちゃんちゃんのちょっぴり不思議な一日は、\r\n"
-                		+ "あたたかい夕陽とともに、そっと幕を下ろしました。\r\n"
-                		+ "\r\n"
-                		+ "";
+                epilogueText = "リン…リン…♪\n"
+                        + catName + "ちゃんが持っていた鈴が、ひときわ明るく鳴り響きました。\n"
+                        + "その音に導かれるように、森の木々の間から優しい光が差し込みます。\n"
+                        + "「あっ…この道、見たことある！」\n"
+                        + "「" + catName + "ちゃんっっ！」\n"
+                        + "森のはずれで、お母さんが笑顔で手を振って待っていました。\n"
+                        + "「よく頑張ったね。鈴の力と、" + catName + "ちゃんの力でちゃんと帰ってこれたんだね」\n"
+                        + "こうして、" + catName + "ちゃんのちょっぴり不思議な一日は、そっと幕を下ろしました。\n";
             } else {
-            	epilogueTitle = "ゲームオーバー";
-                epilogueText ="ゲームオーバー\r\n"
-                		+ "「うぅ…ダメだったのかな…家に帰りたい…お母さんに会いたい…」\r\n"
-                		+ "\r\n"
-                		+ "がっかりしてうつむいた" + catName + "ちゃんのまわりに、森の風がふわっと吹き抜けます。\r\n"
-                		+ "\r\n"
-                		+ "でも、森はまだそこにいて、やさしく見守ってくれているようでした。\r\n"
-                		+ "\r\n"
-                		+ "そのとき、鈴がかすかに光って、こうつぶやいたように聞こえました――\r\n"
-                		+ "\r\n"
-                		+ "「だいじょうぶ。君なら、きっとまたがんばれるよ」\r\n"
-                		+ "\r\n"
-                		+ "たしかに道は見つからなかったけれど、" +catName + "ちゃんの冒険はここで終わりじゃない。\r\n"
-                		+ "森はいつでも君を待ってる。次はもっと遠くまで、きっと行けるよ。\r\n"
-                		+ "\r\n"
-                		+ "そう思ったら、ちょっぴり元気が出てきたのでした。\r\n"
-                		+ "";
+                epilogueTitle = "ゲームオーバー";
+                epilogueText = "ゲームオーバー\n"
+                        + "「うぅ…ダメだったのかな…家に帰りたい…お母さんに会いたい…」\n"
+                        + "でも、森はまだそこにいて、やさしく見守ってくれているようでした。\n"
+                        + "「だいじょうぶ。君なら、きっとまたがんばれるよ」\n"
+                        + "次はもっと遠くまで、きっと行けるよ。\n";
             }
 
             session.setAttribute("epilogueTitle", epilogueTitle);
@@ -136,24 +123,15 @@ public class QuestionServlet extends HttpServlet {
             session.setAttribute("score", scoreRecord);
             request.setAttribute("score", scoreRecord);
             request.setAttribute("user", user);
+
             request.getRequestDispatcher("/WEB-INF/jsp/epilogue.jsp").forward(request, response);
             return;
         }
 
-        // 「次の問題へ」からの遷移なら currentIndex++
-        if ("true".equals(request.getParameter("proceed"))) {
-            currentIndex++;
-            session.setAttribute("currentIndex", currentIndex);
-        }
-
-        // 再取得
-        if (currentIndex < list.size()) {
-            Question question = list.get(currentIndex);
-            request.setAttribute("question", question);
-            request.getRequestDispatcher("/WEB-INF/jsp/question.jsp").forward(request, response);
-        } else {
-            response.sendRedirect("question");
-        }
+        // 通常の問題表示
+        Question question = list.get(currentIndex);
+        request.setAttribute("question", question);
+        request.getRequestDispatcher("/WEB-INF/jsp/question.jsp").forward(request, response);
     }
 
     @SuppressWarnings("unchecked")
@@ -162,76 +140,81 @@ public class QuestionServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-
-        // セッションからリストやインデックスを取得、値がnullなら初期化
         List<Question> list = (List<Question>) session.getAttribute("list");
         Integer currentIndex = (Integer) session.getAttribute("currentIndex");
         Integer score = (Integer) session.getAttribute("score");
+        Map<String, Integer> items = (Map<String, Integer>) session.getAttribute("items");
 
-        if (list == null || list.size() < 10) {
-            // listがnullの場合はDBから問題を取得して設定
-            try (Connection connection = DBUtil.connect()) {
-                QuestionDAO dao = new QuestionDAO(connection);
-                list = dao.find10Questions();
-                if (list.isEmpty()) {
-                    throw new ServletException("問題が存在しません");
-                }
-                Collections.shuffle(list); // ランダム出題
-                session.setAttribute("list", list); // リストをセッションに保存
-            } catch (ClassNotFoundException | SQLException e) {
-                throw new ServletException("DB接続または取得エラー", e);
-            }
-        }
-
-        if (currentIndex == null) {
-            currentIndex = 0;  // 初期値設定
-        }
-        if (score == null) {
-            score = 0;  // 初期値設定
-        }
-
-        if (currentIndex >= list.size()) {
+        if (list == null || list.isEmpty()) {
             response.sendRedirect("question");
             return;
         }
+        if (currentIndex == null) currentIndex = 0;
+        if (score == null) score = 0;
 
+        Question question = list.get(currentIndex);
         String answerStr = request.getParameter("answer");
-        if (answerStr != null) {
-            try {
-                int selected = Integer.parseInt(answerStr);
-                Question question = list.get(currentIndex);
+        Integer selected = null;
+        boolean isCorrect = false;
 
-                boolean isCorrect = selected == question.getCorrectChoice();
-                if (isCorrect) {
+        if (answerStr != null && !answerStr.equals("null")) {
+            try {
+                selected = Integer.parseInt(answerStr);
+                if (selected == question.getCorrectChoice()) {
+                    isCorrect = true;
                     score += 10;
+
+                    Integer correctStreak = (Integer) session.getAttribute("correctStreak");
+                    if (correctStreak == null) correctStreak = 0;
+                    correctStreak++;
+
+                    if (correctStreak == 4) {
+                        correctStreak = 0;
+
+                        Random r = new Random();
+                        boolean both = r.nextInt(100) < 1;
+                        if (items == null) {
+                            items = new HashMap<>();
+                            items.put("matatabi", 0);
+                            items.put("churu", 0);
+                        }
+
+                        if (both) {
+                            items.put("matatabi", items.get("matatabi") + 1);
+                            items.put("churu", items.get("churu") + 1);
+                        } else {
+                            if (r.nextBoolean()) {
+                                items.put("matatabi", items.get("matatabi") + 1);
+                            } else {
+                                items.put("churu", items.get("churu") + 1);
+                            }
+                        }
+                        session.setAttribute("items", items);
+                    }
+
+                    session.setAttribute("correctStreak", correctStreak);
+                } else {
+                    session.setAttribute("correctStreak", 0);
                 }
 
-                session.setAttribute("score", score);
-                // 選択した回答と正誤を `answer.jsp` に渡す
-                request.setAttribute("question", question);
-                request.setAttribute("selected", selected);
-                request.setAttribute("isCorrect", isCorrect);
-                request.setAttribute("isLastQuestion", currentIndex + 1 >= list.size());
-
-                // 次の問題に進むための処理（answer.jspに遷移）
-                request.getRequestDispatcher("/WEB-INF/jsp/answer.jsp").forward(request, response);
-                return;
-
             } catch (NumberFormatException e) {
-                // 無効な選択肢（未選択など）→スキップ処理も可
-                log("無効な選択肢が送信されました: " + answerStr);
+                log("数値変換エラー：" + answerStr);
             }
         } else {
-            // answerがnullの場合のエラーハンドリング
-            log("選択肢が選ばれませんでした");
+            log("未選択 or null が送信されました");
         }
 
-        // 正常な処理後、次の問題に進む
         currentIndex++;
-        session.setAttribute("currentIndex", currentIndex);
         session.setAttribute("score", score);
+        session.setAttribute("currentIndex", currentIndex);
 
-        response.sendRedirect("question");
+        // 解説表示用データを設定
+        request.setAttribute("question", question);
+        request.setAttribute("selected", selected);
+        request.setAttribute("isCorrect", isCorrect);
+        request.setAttribute("isLastQuestion", currentIndex >= list.size());
+
+        // 解説ページを部分表示として返す
+        request.getRequestDispatcher("/WEB-INF/jsp/answer.jsp").forward(request, response);
     }
-
 }

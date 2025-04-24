@@ -48,9 +48,9 @@ public class QuestionDAO {
 	        return list;
 	    }
 	
-	public List<Question> find10Questions() throws SQLException{
+	public List<Question> find15Questions() throws SQLException{
 		List<Question> list = new ArrayList<>();
-		String sql = "SELECT * FROM questions ORDER BY RAND() LIMIT 11";
+		String sql = "SELECT * FROM questions ORDER BY RAND() LIMIT 15";
 		Statement statement = this.connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);
 		while(resultSet.next()) {
