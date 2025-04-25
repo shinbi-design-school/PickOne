@@ -98,7 +98,7 @@ public class QuestionServlet extends HttpServlet {
             String epilogueText;
             String epilogueTitle;
 
-            if (score >= 70) {
+            if (score >= 100) {
                 epilogueTitle = "エピローグ";
                 epilogueText = "リン…リン…♪\n"
                         + catName + "ちゃんが持っていた鈴が、ひときわ明るく鳴り響きました。\n"
@@ -123,8 +123,12 @@ public class QuestionServlet extends HttpServlet {
             session.setAttribute("score", scoreRecord);
             request.setAttribute("score", scoreRecord);
             request.setAttribute("user", user);
-
-            request.getRequestDispatcher("/WEB-INF/jsp/epilogue.jsp").forward(request, response);
+            if(score >= 100) {
+            	request.getRequestDispatcher("/WEB-INF/jsp/epilogue.jsp").forward(request, response);
+            }
+            else {
+            	request.getRequestDispatcher("/WEB-INF/jsp/gameover.jsp").forward(request, response);
+            }
             return;
         }
 

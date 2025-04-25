@@ -7,6 +7,7 @@ public class User {
 	private String name;
 	private String email;
 	private String password;
+	private String salt;
 	private boolean admin;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
@@ -44,6 +45,12 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+	public String getSalt() {
+		return salt;
 	}
 	public boolean isAdmin() {
 		return admin;

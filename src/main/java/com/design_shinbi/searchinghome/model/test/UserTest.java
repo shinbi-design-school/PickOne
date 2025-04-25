@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import com.design_shinbi.searchinghome.model.dao.UserDAO;
 import com.design_shinbi.searchinghome.model.entity.User;
 import com.design_shinbi.searchinghome.util.DBUtil;
+import com.design_shinbi.searchinghome.util.PasswordUtil;
 
 public class UserTest {
 
@@ -56,7 +57,8 @@ public class UserTest {
         assertTrue(added.isAdmin());
 
         //パスワードのハッシュ確認
-        String expectedHash = UserDAO.createHash(password);
+        String salt = added.getSalt();
+        String expectedHash = PasswordUtil.hashPasswordWithSaltPepper(password, salt);  // 修正部分
         assertEquals(expectedHash, added.getPassword(), "ハッシュが一致していること");
 
         System.out.println("✅ ユーザー追加成功: " + added);
@@ -70,5 +72,5 @@ public class UserTest {
 
         System.out.println("✅ ユーザー削除成功");
     }
-
 }
+
