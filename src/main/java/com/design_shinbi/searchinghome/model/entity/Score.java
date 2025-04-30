@@ -12,7 +12,7 @@ public class Score {
     }
 
     public Score(int userId, int score) {
-        this.userId = userId;
+    	this.userId = userId;
         this.score = score;
         this.playedAt = LocalDateTime.now();
     }

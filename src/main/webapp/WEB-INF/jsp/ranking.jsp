@@ -2,51 +2,56 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.design_shinbi.searchinghome.model.entity.Score" %>
 <%
+    String contextPath = request.getContextPath();
+    request.setAttribute("title", "ランキング");
     List<Score> ranking = (List<Score>) request.getAttribute("ranking");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>ランキング</title>
+    <jsp:include page="head.jsp" />
 </head>
 <body>
-    <h1>ランキング（上位10位）</h1>
-
-    <%
-        if (ranking == null || ranking.isEmpty()) {
+    <header></header>
+    <main class="top result">
+        <h1><img src="${pageContext.request.contextPath}/images/rank_ttl.png"></h1>
+        <div class="tbl_wrap">
+        <%
+        if(ranking == null || ranking.isEmpty()){
     %>
-        <p>現在、ランキングのデータがありません。</p>
+        <p>ランキングがありません。</p>
     <%
         } else {
     %>
-        <table border="1">
-            <tr>
-                <th>順位</th>
-                <th>ユーザーID</th>
-                <th>スコア</th>
-                <th>プレイ日時</th>
-            </tr>
-            <%
+            <table class="tbl">
+                <tr>
+                    <th>#</th>
+                    <th>スコア</th>
+                    <th>プレイ日時</th>
+                </tr>
+                <%
                 int rank = 1;
-                for (Score score : ranking) {
+                for(Score score : ranking) {
             %>
-            <tr>
-                <td><%= rank++ %></td>
-                <td><%= score.getUserId() %></td>
-                <td><%= score.getScore() %></td>
-                <td><%= score.getPlayedAt() %></td>
-            </tr>
+                <tr>
+                    <td><%= rank++ %></td>
+                    <td><%= score.getScore() %></td>
+                    <td><%= score.getPlayedAt() %></td>
+                </tr>
             <%
                 }
             %>
-        </table>
-    <%
+            </table>
+            <%
         }
     %>
-
-    <form action="top" method="get">
-        <input type="submit" class="btn" value="トップに戻る">
-    </form>
+            <div class="flex_box nav_area btn_nav">
+                <a href="${pageContext.request.contextPath}/top">
+                    メニューへ戻る</a>
+                </a>
+            </div>
+    </main>
+    <footer></footer>
 </body>
 </html>
+

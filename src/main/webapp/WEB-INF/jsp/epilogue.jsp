@@ -8,24 +8,49 @@
         response.sendRedirect(request.getContextPath() + "/login");
         return;
     }
-
-    String epilogueTitle = (String)session.getAttribute("epilogueTitle");
+    String contextPath = request.getContextPath();
+    request.setAttribute("title", "エピローグ");
     String catName = (String) session.getAttribute("catName");
     Score score = (Score) request.getAttribute("score"); 
-    String epilogueText = (String) session.getAttribute("epilogueText");
-
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-    String formattedPlayedAt = score.getPlayedAt().format(formatter); // OK now
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    String formattedDate = score.getPlayedAt().format(formatter);
 %>
-<html>
-<head><title><%= epilogueTitle %></title></head>
+<!DOCTYPE html>
+<head>
+    <jsp:include page="head.jsp" />
+</head>
 <body>
-   
-    <p><%= user.getName() %>さんのスコアは <strong><%= score.getScore() %></strong> 点です！</p>
-    <p>プレイ日時：<%= formattedPlayedAt %></p>
-    <p><%= epilogueText %></p>
-    <form action="top" method="post">
-        <input type="submit" class="btn" value="タイトルへ">
-    </form>
+   <header></header>
+    <main class="goal">
+        <div class="naka">
+            <div class="pro_txt">
+                <img src="${pageContext.request.contextPath}/images/goal.png" class="ttl_goal">
+                <p class="typeWriter">
+                    光の道を進んでいくと、懐かしい風景がどんどん近づいてきて――<br>
+                    「<%= catName %>ちゃんっっ！」<br>
+                    森のはずれで、お母さんが笑顔で手を振って待っていました。<br>
+                    「よく頑張ったね。鈴の力と、<%= catName %>ちゃんの力でちゃんと帰ってこれたんだね」<br>
+                    ぎゅっと抱きしめられて、安心と嬉しさが胸いっぱいに広がります。<br>
+                    こうして、<%= catName %>ちゃんのちょっぴり不思議な一日は、<br>
+                    あたたかい夕陽とともに、そっと幕を下ろしました。
+                </p>
+
+            </div>
+            <div class="score_board">
+                <p><%= catName %>ちゃんのスコアは<br> <strong><%= score.getScore() %></strong> 点です！</p>
+                <p>プレイ日時<br><%= formattedDate %></p>
+            </div>
+            <div class="login_form">
+                <form action="top" method="post">
+                <input type="submit" value="トップへ">
+            </form>
+            </div>
+        </div>
+        
+        <img src="${pageContext.request.contextPath}/images/cat_home.png" class="cat_img04">
+    </main>
+    <footer></footer>
+    
+    <script src="js/typing.js"></script>
 </body>
 </html>

@@ -23,10 +23,8 @@ public class TopServlet extends HttpServlet {
 	    protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	            throws ServletException, IOException {
 
-	    	HttpSession session = request.getSession();
-	    	
-	    	User user = (User)session.getAttribute(Const.LOGIN_USER_KEY);
-	    	
+	    	HttpSession session = request.getSession();    	
+	    	User user = (User)session.getAttribute(Const.LOGIN_USER_KEY); 	
 	    	String jsp = null;
 	    	if(user == null) {
 	    		jsp = "/WEB-INF/jsp/register.jsp";
@@ -41,7 +39,6 @@ public class TopServlet extends HttpServlet {
 	    			throw new ServletException(e);
 	    		}
 	    	}
-	    	
 	    	try {
 	    		RequestDispatcher dispatcher = request.getRequestDispatcher(jsp);
 	    		dispatcher.forward(request, response);
@@ -61,10 +58,9 @@ public class TopServlet extends HttpServlet {
 	            session.removeAttribute("currentIndex");
 	            session.removeAttribute("scoreSaved");
 	            session.removeAttribute("epilogueText");
-	            session.removeAttribute("catName"); // 猫の名前もリセットするなら
+	            session.removeAttribute("catName"); 
 	        }
-
-	        request.getRequestDispatcher("/WEB-INF/jsp/top.jsp").forward(request, response); // トップ画面にリダイレクト
+	        request.getRequestDispatcher("/WEB-INF/jsp/top.jsp").forward(request, response); 
 	    }
 	}
 

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%
-    request.setAttribute("pageTitle", "ただいまをさがして");
+    request.setAttribute("title", "ログイン");
     String contextPath = request.getContextPath();
 %>
 <!DOCTYPE html>
@@ -28,7 +28,7 @@
                 <input type="text" name="email" required>
 
                 <p>パスワード</p>
-                <input type="text" name="password" required>
+                <input type="password" name="password" required>
 
                 <input type="submit" value="ログイン">
             </form>

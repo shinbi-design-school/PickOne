@@ -3,13 +3,37 @@ $(function () {
     let correctAnswer = parseInt($('#questionText').data('correct'), 10);
     let timer = startTimer(timeLeft, correctAnswer);
 
-    $('#quizForm').on('submit', function (e) {
-        e.preventDefault();
+    $(document).on('click', '.a_box', function (e) {
+        e.preventDefault();  // デフォルトのリンク動作を防ぐ
+        let selectedAnswer = $(this).data('answer');  // data-answer属性で選択肢を取得
         clearInterval(timer);
-        let answer = $('input[name="answer"]:checked').val();
-        submitAnswer(answer);
+        submitAnswer(selectedAnswer);  // サーバーに選択肢を送信
     });
+	
+	$('.extra-close').on('click', function(e) {
+	        e.preventDefault();  // デフォルトのリンク動作（ページ遷移）を防ぐ
 
+	        // 必要なデータを取得（ここでは単純に data-next 属性を使う）
+	        let nextQuestion = $(this).data('next');
+
+	        // POSTリクエストを送信
+	        $.ajax({
+	            url: 'question',  // サーブレットのURL
+	            method: 'POST',  // POSTリクエストを送る
+	            data: { next: nextQuestion },  // 送信するデータ
+	            success: function(response) {
+	                // サーバーからのレスポンスを処理（次の質問を表示するなど）
+	                console.log('次の質問が読み込まれました');
+	                // 例: 次の質問に遷移
+	                window.location.href = 'question?proceed=true';
+	            },
+	            error: function() {
+	                alert('次の質問の取得に失敗しました。');
+	            }
+	        });
+	    });
+	});
+	
     $(document).on('click', '#nextQuestionBtn', function () {
         window.location.href = 'question?proceed=true';
     });
@@ -38,7 +62,7 @@ $(function () {
             timer = startTimer(timeLeft, correctAnswer);
         });
     });
-});
+
 
 function startTimer(duration, correctAnswer) {
     let timeLeft = duration;
@@ -68,5 +92,3 @@ function submitAnswer(answer) {
         }
     });
 }
-
-

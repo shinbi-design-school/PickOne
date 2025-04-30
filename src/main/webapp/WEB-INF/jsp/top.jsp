@@ -2,7 +2,7 @@
 <%@ page import="com.design_shinbi.searchinghome.model.entity.User" %>
 <%
     String contextPath = request.getContextPath();
-    request.setAttribute("pageTitle", "ただいまをさがして");
+    request.setAttribute("title", "メニュー");
     User user = (User) session.getAttribute("loginUser");
     if (user == null) {
         response.sendRedirect(request.getContextPath() + "/login");
@@ -10,44 +10,42 @@
     }
 %>
 <!DOCTYPE html>
-<html>
 <head>
     <jsp:include page="head.jsp" />
 </head>
 <body>
     <header></header>
-    <main class="top">
-        <h1><img src="${pageContext.request.contextPath}/images/ttl_tadaima.png" alt="ただいまをさがして"></h1>
-  
-
-        <div class="user-info">
-            ログイン中：<strong><%= user.getName() %></strong>
-        </div>
-
-        <!-- クイズ開始フォーム -->
-        <form action="naming" method="get">
-            <input type="submit" class="btn" value="クイズを始める">
-        </form>
-
-        <!-- ランキング表示ボタン -->
-        <form action="ranking" method="get">
-            <input type="submit" class="btn" value="ランキングを見る">
-        </form>
-
-        <!-- 履歴表示ボタン -->
-        <form action="history" method="get">
-            <input type="submit" class="btn" value="スコア履歴を見る">
-        </form>
-        
-        <form action="how" method="get">
-            <input type="submit" class="btn" value="あそびかたを見る">
-        </form>
-
-        <!-- ログアウトボタン -->
-        <form action="logout" method="get">
-            <input type="submit" class="btn" style="background-color: #f44336;" value="ログアウト">
-        </form>
-    </div>
-
+    <main class="top menu">
+        <div class="naka">
+            <div class="tuto_txt">
+                <img src="${pageContext.request.contextPath}/images/tutorial02.png" class="ttl_tuto">
+                
+                <p class="">
+                全15問のクイズにチャレンジ！
+                    10問以上正解すると、猫ちゃんは無事におうちへ帰ることができるよ。<br>
+                    さらに…
+                    4問連続で正解すると、冒険の役に立つアイテムがランダムでもらえる！<br>
+                    もらえるアイテム<br>
+                    マタタビ：選択肢が半分に減る！（2択になるよ）<br>
+                    チュール：制限時間がちょっと延びる！<br>
+                    準備はいい？
+                    さあ、猫ちゃんと一緒にクイズの冒険へ出発しよう！
+                </p>
+            </div>
+            <div class="flex_box nav_area btn_nav menu_btn" >
+             <a href="${pageContext.request.contextPath}/history">
+                 プレイ履歴</a>
+             </a>
+             <a href="${pageContext.request.contextPath}/naming">
+                 スタート</a>
+             </a>
+             <a href="${pageContext.request.contextPath}/ranking">
+                 ランキング</a>
+             </a>
+             </div>
+         </div>
+         <img src="${pageContext.request.contextPath}/images/cat_nobi02.png" class="cat_img02">
+         </main>
+         <footer></footer>
 </body>
 </html>

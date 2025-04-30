@@ -44,7 +44,8 @@ public class QuestionServlet extends HttpServlet {
         if (list == null) {
             try (Connection connection = DBUtil.connect()) {
                 QuestionDAO dao = new QuestionDAO(connection);
-                list = dao.find15Questions();
+                //list = dao.find15Questions();
+                list = dao.find1Question();
                 if (list.isEmpty()) {
                     throw new ServletException("問題が存在しません");
                 }
@@ -76,14 +77,6 @@ public class QuestionServlet extends HttpServlet {
                     scoreRecord.setPlayedAt(java.time.LocalDateTime.now());
                     session.setAttribute("score", scoreRecord);
                     session.setAttribute("scoreSaved", true);
-
-                    // セッションリセット
-                    session.removeAttribute("list");
-                    session.removeAttribute("items");
-                    session.removeAttribute("score");
-                    session.removeAttribute("correctStreak");
-                    session.removeAttribute("currentIndex");
-
                 } catch (Exception e) {
                     throw new ServletException("スコア保存エラー", e);
                 }
@@ -94,36 +87,12 @@ public class QuestionServlet extends HttpServlet {
             }
 
             // エピローグ処理
-            String catName = (String) session.getAttribute("catName");
-            String epilogueText;
-            String epilogueTitle;
-
-            if (score >= 100) {
-                epilogueTitle = "エピローグ";
-                epilogueText = "リン…リン…♪\n"
-                        + catName + "ちゃんが持っていた鈴が、ひときわ明るく鳴り響きました。\n"
-                        + "その音に導かれるように、森の木々の間から優しい光が差し込みます。\n"
-                        + "「あっ…この道、見たことある！」\n"
-                        + "「" + catName + "ちゃんっっ！」\n"
-                        + "森のはずれで、お母さんが笑顔で手を振って待っていました。\n"
-                        + "「よく頑張ったね。鈴の力と、" + catName + "ちゃんの力でちゃんと帰ってこれたんだね」\n"
-                        + "こうして、" + catName + "ちゃんのちょっぴり不思議な一日は、そっと幕を下ろしました。\n";
-            } else {
-                epilogueTitle = "ゲームオーバー";
-                epilogueText = "ゲームオーバー\n"
-                        + "「うぅ…ダメだったのかな…家に帰りたい…お母さんに会いたい…」\n"
-                        + "でも、森はまだそこにいて、やさしく見守ってくれているようでした。\n"
-                        + "「だいじょうぶ。君なら、きっとまたがんばれるよ」\n"
-                        + "次はもっと遠くまで、きっと行けるよ。\n";
-            }
-
-            session.setAttribute("epilogueTitle", epilogueTitle);
+            String catName = (String) session.getAttribute("catName");           
             session.setAttribute("catName", catName);
-            session.setAttribute("epilogueText", epilogueText);
             session.setAttribute("score", scoreRecord);
             request.setAttribute("score", scoreRecord);
             request.setAttribute("user", user);
-            if(score >= 100) {
+            if(score >= 10) {
             	request.getRequestDispatcher("/WEB-INF/jsp/epilogue.jsp").forward(request, response);
             }
             else {

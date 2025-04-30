@@ -34,41 +34,31 @@ public class LoginServlet extends HttpServlet {
         try {
             Connection connection = DBUtil.connect();
             String jsp = null;
-            String error = "";
+            boolean error = false;
             User user = null;
 
             UserDAO userDao = new UserDAO(connection);
-
             String email = request.getParameter("email");
-            if (email == null || email.isEmpty()) {
-                error = "メールアドレスを入力してください。";
-            }
-
             String password = request.getParameter("password");
-            if (password == null || password.isEmpty()) {
-                error = error + "パスワードを入力してください。";
-            }
+            if (email == null || email.isEmpty() || password == null || password.isEmpty()) {
+            	error = true;
+            	jsp = "/WEB-INF/jsp/login-error.jsp";
+            }              
 
-            if (error.isEmpty()) {
+            if (!error) {
                 user = userDao.login(email, password);
-            }
-
-            if (user == null) {
-                if (error.isEmpty()) {
-                    error = "ユーザー名もしくはパスワードが違います。";
+                if(user == null) {
+                	jsp = "/WEB-INF/jsp/login-error.jsp";
                 }
-                request.setAttribute("error", error);
-                jsp = "/WEB-INF/jsp/login.jsp";
-            } else {
-            	HttpSession oldSession = request.getSession(false);
-            	if(oldSession != null) {
-            		oldSession.invalidate();
-            	}
-            	
-                HttpSession newSession = request.getSession(true);
-                newSession.setAttribute(Const.LOGIN_USER_KEY, user);
-                jsp = "/WEB-INF/jsp/top.jsp";
-            }
+	
+	            HttpSession oldSession = request.getSession(false);
+	            if(oldSession != null) {
+	            	oldSession.invalidate();
+	            }
+	            HttpSession newSession = request.getSession(true);
+	            newSession.setAttribute(Const.LOGIN_USER_KEY, user);
+	            jsp = "/WEB-INF/jsp/top.jsp";
+	        }
 
             RequestDispatcher dispatcher = request.getRequestDispatcher(jsp);
             dispatcher.forward(request, response);

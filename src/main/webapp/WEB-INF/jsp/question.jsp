@@ -7,7 +7,10 @@
 	response.setDateHeader("Expires", 0);
     Question question = (Question) request.getAttribute("question");
     String contextPath = request.getContextPath();
-
+    Boolean isLastQuestion = (Boolean) request.getAttribute("isLastQuestion");
+    String nextButtonImage = isLastQuestion
+            ? "<img src='" + contextPath + "/images/btn_next.png' class='btn_next'>"
+            : "<img src='" + contextPath + "/images/btn_nextq.png' class='btn_next'>";
     Map<String, Integer> items = (Map<String, Integer>) session.getAttribute("items");
     if (items == null) {
         items = new HashMap<>();
@@ -28,42 +31,66 @@
 
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>クイズ</title> 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <jsp:include page="head.jsp" />
-    <script src="<%= contextPath %>/js/question.js"></script>
+   
 </head>
 <body>
+<header></header>
+    <main class="top quiz flex_box">
+        <div class="q_box">
+            <img src="${pageContext.request.contextPath}/images/ttl_q.png" class="ttl_question">
+            <p><%= question.getQuestionText() %>
+            </p>
+        </div>
 
-<h2 id="questionText" data-correct="<%= question.getCorrectChoice() %>"><%= question.getQuestionText() %></h2>
-<div id="timer">残り時間: <span id="time" data-time="<%= totalTime %>"><%= totalTime %></span> 秒</div>
+        <div class="a_area flex_box">
+            <a class="a_box modal-open" href="#" data-answer="1">
+                <img src="${pageContext.request.contextPath}/images/a1.png" class="ttl_anser">
+                <p><%= question.getChoice1() %></p>
+            </a>
+            <a class="a_box modal-open" href="#" data-answer="2">
+                <img src="${pageContext.request.contextPath}/images/a2.png" class="ttl_anser">
+                <p><%= question.getChoice2() %></p>
+            </a>
+            <a class="a_box modal-open" href="#" data-answer="3">
+                <img src="${pageContext.request.contextPath}/images/a3.png" class="ttl_anser">
+                <p><%= question.getChoice3() %></p>
+            </a>
+            <a class="a_box modal-open" href="#" data-answer="4">
+                <img src="${pageContext.request.contextPath}/images/a4.png" class="ttl_anser">
+                <p><%= question.getChoice4() %></p>
+            </a>
+        </div>
+        <div class="op_box">
+            <div class="time_box"><p class="naka"><%= totalTime %></p></div>
+            <a href="#" class="mttb_box"><img src="${pageContext.request.contextPath}/images/matatabi.png">× 0</a>
+            <a href="#" class="tyuru_box"><img src="${pageContext.request.contextPath}/images/tyu-ru.png">× 0</a>
+        </div>
+        <img src="${pageContext.request.contextPath}/images/cat_ques.png" class="cat_img02">
 
+        <!--ここから解答-->
+        <div class="modal-container">
+            <div class="modal-body">
+                <div class="modal-close">×</div>
+                <div class="modal-content">
+                    <p class="red">正解は<%= question.getCorrectChoice() %>番！</p>
 
-<!-- アイテム使用ボタン -->
-<div>
-    <p>
-        マタタビ: <%= items.get("matatabi") %> / チュール: <%= items.get("churu") %>
-    </p>
-    <button id="useMatatabi" <%= items.get("matatabi") <= 0 ? "disabled" : "" %>>マタタビを使う</button>
-    <button id="useChuru" <%= items.get("churu") <= 0 ? "disabled" : "" %>>チュールを使う</button>
-</div>
-
-<form id="quizForm">
-    <div class="choice"><label><input type="radio" name="answer" value="1" required> <%= question.getChoice1() %></label></div>
-    <div class="choice"><label><input type="radio" name="answer" value="2"> <%= question.getChoice2() %></label></div>
-    <div class="choice"><label><input type="radio" name="answer" value="3"> <%= question.getChoice3() %></label></div>
-    <div class="choice"><label><input type="radio" name="answer" value="4"> <%= question.getChoice4() %></label></div>
-    <button type="submit">回答する</button>
-</form>
-
-<div class="modal-container">
-  <div class="modal-body">
-    <a class="modal-close" href="#">×</a>
-    <div id="resultModal">
-    </div>
-  </div>
-</div>
-
-</body>
+                    <p class="ans_pht"><img src="<%= contextPath + "/" + question.getImageUrl()%>"></p>
+                    <p class="kaisetsu"><%= question.getExplanation() %></p>
+                    <div class="right">
+                        <a href="#" class="extra-close" data-next="true">
+                        <%= nextButtonImage %>
+                        </a>
+                    </div>
+                    <img src="${pageContext.request.contextPath}/images/cat_ans.png" class="cat_img03">
+                </div>
+            </div>
+        </div>
+        <!--ここまで解答-->
+    </main>
+    <footer></footer>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="<%= contextPath %>/js/question.js"></script>
+    </body>
 </html>
