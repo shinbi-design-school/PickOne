@@ -62,9 +62,16 @@ h1 img {
     color: #fff;
 }
 
+.login_form .flex_box form{
+	width: 240px;
+}
+
+.login_form .flex_box form:first-child{
+	margin-right: 20px;
+}
+
 .login_form input[type=submit] {
-    width: 50%;
-    margin: 0 25%;
+    width: 100%;
     padding: 15px 5px;
     border-radius: 5px;
     border: 3px solid #fff;
@@ -126,7 +133,8 @@ h1 img {
     color: #fff;
     width: 80%;
     position: relative;
-    min-height: 430px;
+    min-height: 440px;
+	margin:0 auto;
 }
 
 .tuto_txt {
@@ -330,7 +338,6 @@ h1 img {
 .mttb_box{
     left: 0;
     bottom: 80px;
-
 }
 
 .tyuru_box{
@@ -428,6 +435,10 @@ h1 img {
     text-shadow: none;
     background: rgba(255, 255, 255, 0.65);
     margin: 0 0 3% 0;
+}
+
+.mar_B5{
+	margin: 0 0 5% 0;
 }
 
 .right {
