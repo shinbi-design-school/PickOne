@@ -5,10 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBUtil {
-	private static final String DB_NAME = "searchinghome_test";
-	private static final String TEST_DB_NAME = "searchinghome_test";
+	private static final String DB_NAME = "searchinghome";
+	private static final String TEST_DB_NAME = "searchinghome";
 	private static final String DB_USER = "root";
-	private static final String DB_PASSWORD = "12345";
+	private static final String DB_PASSWORD = "";
 	
 	public static Connection connect() throws ClassNotFoundException, SQLException{
 		return connect(false);

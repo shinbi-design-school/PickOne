@@ -17,6 +17,7 @@ request.setAttribute("title", "ユーザー登録");
 		</h1>
 
 		<div class="login_form">
+			<form action="register" method="post">
 			<p>名前</p>
 			<input type="text" name="name" required>
 			<p>メールアドレス</p>
@@ -24,7 +25,7 @@ request.setAttribute("title", "ユーザー登録");
 			<p>パスワード</p>
 			<input type="password" name="password" required>
 			<div class="flex_box">
-				<form action="register" method="post">
+				
 					<input type="submit" value="登録">
 				</form>
 				<form action="login" method="get">

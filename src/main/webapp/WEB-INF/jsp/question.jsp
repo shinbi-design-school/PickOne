@@ -41,7 +41,7 @@
             <p><%= question.getQuestionText() %></p>
         </div>
 
-    <form id="answerForm" action="question" method="post">
+    <form id="answerForm" action="question" method="post" class="flex_box">
         <div class="a_area flex_box">
             <a class="a_box modal-open" href="#" data-answer="1">
                 <img src="${pageContext.request.contextPath}/images/a1.png" class="ttl_anser">
