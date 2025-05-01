@@ -23,7 +23,7 @@
             <% } %>
 
             <!-- ログインフォーム -->
-            <form action="login" method="post">
+            <form action="login" method="post" class="mar_B5">
                 <p>メールアドレス</p>
                 <input type="text" name="email" required>
 
