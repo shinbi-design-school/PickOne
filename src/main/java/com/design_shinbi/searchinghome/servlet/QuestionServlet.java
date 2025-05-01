@@ -132,6 +132,24 @@ public class QuestionServlet extends HttpServlet {
         if (currentIndex == null) currentIndex = 0;
         if (score == null) score = 0;
         
+        // アイテム使用処理
+        String useItem = request.getParameter("useItem");
+        if (useItem != null) {
+            if (items == null) {
+                items = new HashMap<>();
+                items.put("matatabi", 0);
+                items.put("churu", 0);
+            }
+
+            // アイテム使用
+            if (useItem.equals("matatabi") && items.get("matatabi") > 0) {
+                items.put("matatabi", items.get("matatabi") - 1);  // マタタビを1つ減らす
+            } else if (useItem.equals("churu") && items.get("churu") > 0) {
+                items.put("churu", items.get("churu") - 1);  // チュールを1つ減らす
+            }
+            session.setAttribute("items", items);
+        }
+        
         Question question = list.get(currentIndex);
         String answerStr = request.getParameter("answer");
         Integer selected = null;
@@ -192,12 +210,6 @@ public class QuestionServlet extends HttpServlet {
         System.out.println("【DEBUG】POST後のcurrentIndex: " + currentIndex);
         System.out.println("【DEBUG】正解か？: " + isCorrect);
 
-        // 解説表示用データを設定
-        request.setAttribute("question", question);
-        request.setAttribute("selected", selected);
-        request.setAttribute("isCorrect", isCorrect);
-        request.setAttribute("isLastQuestion", currentIndex >= list.size());
-
-        request.getRequestDispatcher("/WEB-INF/jsp/question.jsp").forward(request, response);
+        response.sendRedirect("question?next=true");
     }
 }

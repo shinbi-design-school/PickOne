@@ -1,54 +1,95 @@
 $(function () {
-    // 選択肢をクリックしたらPOST送信
-    $(document).on('click', '.a_box', function (e) {
-        e.preventDefault(); // aタグのデフォルト動作（遷移）を無効化
+    const basePath = location.pathname.split('/')[1] ? '/' + location.pathname.split('/')[1] : '';
+    let timeLeft = parseInt($('.time_box p').text().trim());
+    let timer;
+    let usedItemThisQuestion = false;
 
-        const selectedAnswer = $(this).data('answer');
+    startTimer();
 
-        // 過去の hidden input があれば削除
-        $('#answerForm input[name="answer"]').remove();
+    function startTimer() {
+        timer = setInterval(() => {
+            timeLeft--;
+            updateTimerDisplay();
 
-        // hidden input を追加してPOST
-        const input = $('<input>', {
-            type: 'hidden',
-            name: 'answer',
-            value: selectedAnswer
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                $('#answerInput').val(""); // 未選択として扱う
+                $('.modal-container').addClass('active');
+            }
+        }, 1000);
+    }
+
+    function updateTimerDisplay() {
+        $('.time_box p').text(timeLeft);
+    }
+
+    function stopTimer() {
+        clearInterval(timer);
+    }
+
+    function extendTimer() {
+        timeLeft *= 2;
+        updateTimerDisplay();
+    }
+
+	function reduceChoicesToTwo() {
+	    let correct = window.correctChoice;
+	    let $choices = $('.a_box');
+	    let incorrects = $choices.filter((_, el) => $(el).data('answer') != correct);
+	    let shuffled = incorrects.sort(() => 0.5 - Math.random());
+	    shuffled.slice(0, 2).hide();
+	}
+
+    function useItem(item) {
+        $.ajax({
+            url: basePath + "/item",
+            type: "POST",
+            data: { item: item },
+            success: function () {
+                const $itemBox = item === 'churu' ? $('#churuUsage') : $('#matatabiUsage');
+                let countText = $itemBox.text();
+                let count = parseInt(countText.match(/\d+/));
+                $itemBox.html($itemBox.html().replace(/×\s*\d+/, '× ' + (count - 1)));
+
+                if (item === 'churu') {
+                    extendTimer();
+                } else if (item === 'matatabi') {
+                    reduceChoicesToTwo();
+                }
+
+                usedItemThisQuestion = true;
+            },
+            error: function () {
+                alert('アイテム使用に失敗しました');
+            }
         });
+    }
 
-        $('#answerForm').append(input);
-        $('#answerForm').submit();  // 明示的に送信
+    $('#churuUsage').on('click', function (e) {
+        e.preventDefault();
+        if (!usedItemThisQuestion) useItem('churu');
+    });
+
+    $('#matatabiUsage').on('click', function (e) {
+        e.preventDefault();
+        if (!usedItemThisQuestion) useItem('matatabi');
+    });
+
+    $('.a_box').on('click', function (e) {
+        e.preventDefault();
+        stopTimer();
+        let selectedAnswer = $(this).data('answer');
+        $('#answerInput').val(selectedAnswer);
+        $('.modal-container').addClass('active');
+    });
+
+    $('.modal-close').on('click', function () {
+        $('.modal-container').removeClass('active');
+    });
+
+    $('.go-next').on('click', function (e) {
+        e.preventDefault();
+        $('#answerForm').submit();
     });
 });
 
-
-    // 次の問題へ（GETで遷移）
-    $(document).on('click', '.extra-close', function (e) {
-        e.preventDefault();
-        window.location.href = 'question?next=true';
-    });
-
-    // マタタビ・チュールなど（任意機能）
-    $('#overlay').on('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-    });
-
-    $('#useMatatabi').on('click', function () {
-        let wrongChoices = [1, 2, 3, 4].filter(n => n !== correctAnswer);
-        let toHide = wrongChoices.sort(() => Math.random() - 0.5).slice(0, 2);
-        toHide.forEach(i => {
-            $('input[value="' + i + '"]').closest('.choice').hide();
-        });
-
-        $(this).prop('disabled', true);
-        $.post('item', { item: 'matatabi' });
-    });
-
-    $('#useChuru').on('click', function () {
-        $(this).prop('disabled', true);
-        $.post('item', { item: 'churu' }, function () {
-            clearInterval(timer);
-            timeLeft *= 2;
-            timer = startTimer(timeLeft, correctAnswer);
-        });
-    });

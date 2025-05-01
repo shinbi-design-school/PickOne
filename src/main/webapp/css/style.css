@@ -356,6 +356,7 @@ h1 img {
 /*モーダル本体の指定 + モーダル外側の背景の指定*/
 .modal-container {
     position: fixed;
+	display: none;
     top: 0;
     left: 0;
     width: 100%;
@@ -380,6 +381,7 @@ h1 img {
 
 /*モーダル本体に「active」クラス付与した時のスタイル*/
 .modal-container.active {
+	display: block;
     opacity: 1;
     visibility: visible;
 }

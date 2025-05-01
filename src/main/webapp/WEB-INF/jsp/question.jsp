@@ -30,71 +30,79 @@
     int totalTime = baseTime * timeMultiplier;
     session.setAttribute("timeMultiplier", 1);
 %>
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-    <jsp:include page="head.jsp" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <title>ただいまをさがして-クイズ</title>
 </head>
 <body>
+    <header></header>
     <main class="top quiz flex_box">
         <div class="q_box">
             <img src="${pageContext.request.contextPath}/images/ttl_q.png" class="ttl_question">
             <p><%= question.getQuestionText() %></p>
         </div>
 
-    <form id="answerForm" action="question" method="post">
-        <div class="a_area flex_box">
-            <a class="a_box modal-open" href="#" data-answer="1">
-                <img src="${pageContext.request.contextPath}/images/a1.png" class="ttl_anser">
-                <p><%= question.getChoice1() %></p>
-            </a>
-            <a class="a_box modal-open" href="#" data-answer="2">
-                <img src="${pageContext.request.contextPath}/images/a2.png" class="ttl_anser">
-                <p><%= question.getChoice2() %></p>
-            </a>
-            <a class="a_box modal-open" href="#" data-answer="3">
-                <img src="${pageContext.request.contextPath}/images/a3.png" class="ttl_anser">
-                <p><%= question.getChoice3() %></p>
-            </a>
-            <a class="a_box modal-open" href="#" data-answer="4">
-                <img src="${pageContext.request.contextPath}/images/a4.png" class="ttl_anser">
-                <p><%= question.getChoice4() %></p>
-            </a>
-        </div>
+        <form id="answerForm" action="question" method="post">
+            <input type="hidden" name="answer" id="answerInput">
+            <div class="a_area flex_box">
+                <a class="a_box modal-open" href="#" data-answer="1">
+                    <img src="${pageContext.request.contextPath}/images/a1.png" class="ttl_anser">
+                    <p><%= question.getChoice1() %></p>
+                </a>
+                <a class="a_box modal-open" href="#" data-answer="2">
+                    <img src="${pageContext.request.contextPath}/images/a2.png" class="ttl_anser">
+                    <p><%= question.getChoice2() %></p>
+                </a>
+                <a class="a_box modal-open" href="#" data-answer="3">
+                    <img src="${pageContext.request.contextPath}/images/a3.png" class="ttl_anser">
+                    <p><%= question.getChoice3() %></p>
+                </a>
+                <a class="a_box modal-open" href="#" data-answer="4">
+                    <img src="${pageContext.request.contextPath}/images/a4.png" class="ttl_anser">
+                    <p><%= question.getChoice4() %></p>
+                </a>
+            </div>
+        </form>
 
         <div class="op_box">
             <div class="time_box"><p class="naka"><%= totalTime %></p></div>
-            <a href="#" class="mttb_box"><img src="${pageContext.request.contextPath}/images/matatabi.png">× 0</a>
-            <a href="#" class="tyuru_box"><img src="${pageContext.request.contextPath}/images/tyu-ru.png">× 0</a>
+            <a href="#" class="mttb_box" id="matatabiUsage"><img src="${pageContext.request.contextPath}/images/matatabi.png">× <%= items.get("matatabi") %></a>
+            <a href="#" class="tyuru_box" id="churuUsage"><img src="${pageContext.request.contextPath}/images/tyu-ru.png">× <%= items.get("churu") %></a>
         </div>
-        
-        <button type="submit" style="display:none">Submit</button>
-</form>
 
         <img src="${pageContext.request.contextPath}/images/cat_ques.png" class="cat_img02">
-        
-        <!--ここから解答-->
+
+        <!-- モーダルここから -->
         <div class="modal-container">
             <div class="modal-body">
                 <div class="modal-close">×</div>
                 <div class="modal-content">
-                    <p class="red">正解は<%= question.getCorrectChoice() %>番！</p>
-
-                    <p class="ans_pht"><img src="<%= contextPath + "/" + question.getImageUrl()%>"></p>
+                   <p class="red">正解は <%= question.getCorrectChoice() %> 番！</p>
+                    <p class="ans_pht"><img src="<%= request.getContextPath() + "/" + question.getImageUrl() %>"></p>
                     <p class="kaisetsu"><%= question.getExplanation() %></p>
                     <div class="right">
-                        <a href="#" class="extra-close" data-next="true">
-                        <%= nextButtonImage %>
+                        <a href="#" class="go-next">
+                            <%= nextButtonImage %> 
                         </a>
                     </div>
                     <img src="${pageContext.request.contextPath}/images/cat_ans.png" class="cat_img03">
                 </div>
             </div>
         </div>
-        <!--ここまで解答-->
+        <!-- モーダルここまで -->
     </main>
-
+    
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+    window.correctChoice = <%= question.getCorrectChoice() %>;
+</script>
     <script src="${pageContext.request.contextPath}/js/question.js"></script>
-    <script src="js/modal.js"></script>
+    <script src="${pageContext.request.contextPath}/js/item.js">
 </body>
 </html>
+
