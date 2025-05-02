@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DBUtil {
 	private static final String DB_NAME = "searchinghome";
-	private static final String TEST_DB_NAME = "searchinghome";
+	private static final String TEST_DB_NAME = "searchinghome_test";
 	private static final String DB_USER = "root";
 	private static final String DB_PASSWORD = "";
 	

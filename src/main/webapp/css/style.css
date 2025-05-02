@@ -1,66 +1,70 @@
 @charset "utf-8";
 
 html {
-    font-size: 18px;
+	font-size: 18px;
 }
 
 body {
-    color: #fff;
-    text-shadow: 0px 0px 5px rgba(0, 0, 0, 1.0);
+	color: #fff;
+	text-shadow: 0px 0px 5px rgba(0, 0, 0, 1.0);
 }
 
 main {
-    width: 100%;
-    height: 100vh;
+	width: 100%;
+	height: 100vh;
 }
 
 main.top,
 main.prologue,
 main.over,
 main.menu {
-    background: url(/searchinghome/images/quiz_back.jpg);
-    background-size: cover;
+	background: url(/searchinghome/images/quiz_back.jpg);
+	background-size: cover;
 }
 
 main.goal {
-    background: url(/searchinghome/images/home_back.jpg);
-    background-size: cover;
+	background: url(/searchinghome/images/home_back.jpg);
+	background-size: cover;
 }
 
 .top h1 {
-    width: 70%;
-    margin: 0 auto;
-    padding: 1.5% 0 1.5% 0;
+	width: 70%;
+	margin: 0 auto;
+	padding: 1.5% 0 1.5% 0;
 }
 
 h1 img {
-    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.6));
+	filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.6));
 }
 
 .login_form {
-    width: 500px;
-    margin: 0 auto;
+	width: 500px;
+	margin: 0 auto;
 }
 
-.login_form input[type=text] {
-    width: 100%;
-    padding: 15px 5px;
-    margin: 0 0 5% 0;
-    border-radius: 5px;
-    border: 3px solid #fff;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #fff;
+.login_form input[type=text],
+.login_form input[type=password] {
+	width: 100%;
+	padding: 12px 5px;
+	margin: 0 0 10px 0;
+	border-radius: 5px;
+	border: 3px solid #fff;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
 }
 
 .login_form input[type=submit] {
-    width: 50%;
-    margin: 0 25%;
-    padding: 15px 5px;
-    border-radius: 5px;
-    border: 3px solid #fff;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #fff;
-    font-size: 20px;
+	width: 80%;
+	padding: 12px 5px;
+	margin: 0 10% 10px;
+	border-radius: 5px;
+	border: 3px solid #fff;
+	background-color: rgba(255, 255, 255, 0.65);
+	color: #000;
+	font-size: 20px;
+}
+.login_form input[type=submit] :first-child{
+	margin: 10px 10% 10px;
 }
 
 .cat_form,
@@ -68,513 +72,517 @@ h1 img {
 .menu .naka,
 .a_box,
 .op_box {
-    position: relative;
+	position: relative;
 }
 
 .cat_form form {
-    width: 400px;
-    position: absolute;
-    bottom: 20%;
-    right: 10%;
+	width: 400px;
+	position: absolute;
+	bottom: 20%;
+	right: 10%;
 }
 
 .login_form p,
 .cat_form form p {
-    font-size: 24px;
+	font-size: 24px;
 }
 
 .cat_form form p {
-    text-align: center;
+	text-align: center;
 }
 
 
 .cat_form form input[type=text] {
-    width: 400px;
-    padding: 15px 5px;
-    margin: 0 0 5% 0;
-    border-radius: 5px;
-    border: 3px solid #fff;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #fff;
+	width: 400px;
+	padding: 15px 5px;
+	margin: 0 0 5% 0;
+	border-radius: 5px;
+	border: 3px solid #fff;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
 }
 
 .cat_form input[type=submit] {
-    width: 50%;
-    margin: 0 25%;
-    padding: 15px 5px;
-    border-radius: 5px;
-    border: 3px solid #fff;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #fff;
-    font-size: 20px;
+	width: 50%;
+	margin: 0 25%;
+	padding: 15px 5px;
+	border-radius: 5px;
+	border: 3px solid #fff;
+	background-color: rgba(255, 255, 255, 0.7);
+	color: #000;
+	font-size: 20px;
 }
 
 .pro_txt {
-    padding: 70px;
-    border-radius: 5px;
-    border: 3px solid #fff;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #fff;
-    width: 80%;
-    position: relative;
-    min-height: 440px;
-    margin: 0 auto;
+	padding: 70px;
+	border-radius: 5px;
+	border: 3px solid #fff;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	width: 80%;
+	position: relative;
+	min-height: 440px;
+	margin: 0 auto 20px;
 }
 
 .tuto_txt {
-    padding: 70px;
-    border-radius: 5px;
-    border: 3px solid #fff;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #fff;
-    width: 90%;
-    margin: 0 5%;
-    position: relative;
+	padding: 70px;
+	border-radius: 5px;
+	border: 3px solid #fff;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	width: 90%;
+	margin: 0 5%;
+	position: relative;
 }
 
 .ttl_pro {
-    width: 400px;
-    position: absolute;
-    top: -50px;
-    left: 30px;
+	width: 400px;
+	position: absolute;
+	top: -50px;
+	left: 30px;
 }
 
 .ttl_tuto {
-    width: 950px;
-    position: absolute;
-    top: -50px;
-    left: 30px;
+	width: 950px;
+	position: absolute;
+	top: -50px;
+	left: 30px;
 }
 
 .ttl_goal {
-    width: 250px;
-    position: absolute;
-    top: -50px;
-    left: 30px;
+	width: 250px;
+	position: absolute;
+	top: -50px;
+	left: 30px;
 }
 
 .cat_img {
-    width: 350px;
-    left: 16%;
-    bottom: 5%;
-    position: absolute;
+	width: 350px;
+	left: 16%;
+	bottom: 5%;
+	position: absolute;
 }
 
 .cat_img02 {
-    width: 300px;
-    right: 3%;
-    bottom: 5%;
-    position: absolute;
-    
+	width: 300px;
+	right: 3%;
+	bottom: 5%;
+	position: absolute;
+
 }
 
-.fuwari{
-animation: fluffy 2.3s infinite;
+.fuwari {
+	animation: fluffy 2.3s infinite;
 }
 
 .cat_img03 {
-    width: 150px;
-    left: 1%;
-    bottom: 5%;
-    position: absolute;
+	width: 150px;
+	left: 1%;
+	bottom: 5%;
+	position: absolute;
 }
 
 .cat_img04 {
-    width: 350px;
-    left: 5%;
-    bottom: 5%;
-    position: absolute;
+	width: 350px;
+	left: 5%;
+	bottom: 5%;
+	position: absolute;
 }
 
 .cat_img05 {
-    width: 300px;
-    left: 5%;
-    bottom: 5%;
-    position: absolute;
+	width: 300px;
+	left: 5%;
+	bottom: 5%;
+	position: absolute;
 }
 
 .tyou_img {
-    width: 150px;
-    right: 20%;
-    bottom: 40%;
-    position: absolute;
-    animation: fluffy 3s infinite;
+	width: 150px;
+	right: 20%;
+	bottom: 40%;
+	position: absolute;
+	animation: fluffy 3s infinite;
 }
 
 @keyframes fluffy {
 
-    0%,
-    100% {
-        transform: translateY(0);
-    }
+	0%,
+	100% {
+		transform: translateY(0);
+	}
 
-    50% {
-        transform: translateY(-70px);
-    }
+	50% {
+		transform: translateY(-70px);
+	}
 }
 
 .btn_start {
-    width: 250px;
-    height: 50px;
-    position: absolute;
-    left: 50%;
-    bottom: -80px;
-    transform: translateY(0%) translateX(-50%);
-    -webkit- transform: translateY(0%) translateX(-50%);
-    border: none;
+	width: 250px;
+	height: 50px;
+	position: absolute;
+	left: 50%;
+	bottom: -80px;
+	transform: translateY(0%) translateX(-50%);
+	-webkit- transform: translateY(0%) translateX(-50%);
+	border: none;
 }
 
 .quiz {
-    padding: 70px 100px;
+	padding: 70px 100px;
 }
 
 .q_box {
-    width: 100%;
-    padding: 30px 30px 30px 120px;
-    margin: 0 0 5% 0;
-    border-radius: 5px;
-    border: 3px solid #fff;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #fff;
+	width: 100%;
+	padding: 30px 30px 30px 120px;
+	margin: 0 0 5% 0;
+	border-radius: 5px;
+	border: 3px solid #fff;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	min-height: 140px;
 }
 
 .ttl_question {
-    width: 120px;
-    position: absolute;
-    left: 100px;
-    top: 30px;
+	width: 120px;
+	position: absolute;
+	left: 100px;
+	top: 30px;
 }
 
 .ttl_anser {
-    position: absolute;
-    width: 80px;
-    top: -50px;
-    left: 0px;
+	position: absolute;
+	width: 80px;
+	top: -50px;
+	left: 0px;
 }
 
 #answerForm {
-    width: 100%;
+	width: 100%;
+	min-height: 300px;
 }
 
-.a_area{
+.a_area {
 	width: 80%;
 }
 
 .a_box {
-    display: block;
-    width: 45%;
-    padding: 20px 15px 20px 100px;
-    margin: 0 5% 5% 0;
-    border-radius: 5px;
-    border: 3px solid #fff;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #fff;
-    min-height: 140px;
+	display: block;
+	width: 45%;
+	padding: 20px 15px 20px 100px;
+	margin: 0 5% 5% 0;
+	border-radius: 5px;
+	border: 3px solid #fff;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	height: 140px;
 }
 
 .a_box:hover,
 .mttb_box:hover,
-.tyuru_box:hover
- {
-    background-color: rgba(255, 250, 105, 0.7) !important;
-    color: #000;
-    text-shadow: none;
+.tyuru_box:hover{
+	background-color: rgba(255, 250, 105, 0.7) !important;
+	color: #000;
+	text-shadow: none;
+	transition: 0.3s;
 }
 
 .a_box p {
-    font-size: 24px;
+	font-size: 24px;
 }
 
-.op_box{
-    width: 20%;
-    height: 40%;
+.op_box {
+	width: 20%;
+	height: 40%;
 }
 
-.time_box{
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    border-radius: 150px;
-    text-align: center;
-    font-size: 140%;
-    color: brown;
-    text-shadow: none;
-    font-weight: bold;
+.time_box {
+	position: absolute;
+	width: 150px;
+	height: 150px;
+	border-radius: 150px;
+	text-align: center;
+	font-size: 140%;
+	color: brown;
+	text-shadow: none;
+	font-weight: bold;
 }
 
 .mttb_box,
-.tyuru_box{
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    border: 3px solid #fff;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #fff;
-    border-radius: 150px;
-    text-align: center;
-    font-size: 140%;
+.tyuru_box {
+	position: absolute;
+	width: 150px;
+	height: 150px;
+	border: 3px solid #fff;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	border-radius: 150px;
+	text-align: center;
+	font-size: 140%;
 }
 
-.time_box{
-    top: -90px;
-    right:-30px;
-    line-height: 1.3;
-    background: url(/searchinghome/images/tokei.png) no-repeat;
-    background-size: cover;
-    background-position: center center;
+.time_box {
+	top: -90px;
+	right: -30px;
+	line-height: 1.3;
+	background: url(/searchinghome/images/tokei.png) no-repeat;
+	background-size: cover;
+	background-position: center center;
 }
 
-.mttb_box{
-    left: 0;
-    bottom: 45px;
-
+.mttb_box {
+	left: 0;
+	bottom: 45px;
 }
 
-.tyuru_box{
-    right: -20px;
-    bottom:-60px;
-    z-index: 2;
+.tyuru_box {
+	right: -20px;
+	bottom: -60px;
+	z-index: 2;
 }
 
 .mttb_box img,
-.tyuru_box img{
-    height: 120px;
-    padding: 20px 0 0 0;
-    width: auto;
+.tyuru_box img {
+	height: 120px;
+	padding: 20px 0 0 0;
+	width: auto;
 }
 
 /*モーダル本体の指定 + モーダル外側の背景の指定*/
 .modal-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    background: rgba(0, 0, 0, 60%);
-    padding: 40px 20px;
-    overflow: auto;
-    opacity: 0;
-    visibility: hidden;
-    transition: .3s;
-    box-sizing: border-box;
-    z-index: 3;
+	position: fixed;
+	display: none;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	background: rgba(0, 0, 0, 60%);
+	padding: 40px 20px;
+	overflow: auto;
+	opacity: 0;
+	visibility: hidden;
+	transition: .3s;
+	box-sizing: border-box;
+	z-index: 3;
 }
 
 /*モーダル本体の擬似要素の指定*/
 .modal-container:before {
-    content: "";
-    display: inline-block;
-    vertical-align: middle;
-    height: 100%;
+	content: "";
+	display: inline-block;
+	vertical-align: middle;
+	height: 100%;
 }
 
 /*モーダル本体に「active」クラス付与した時のスタイル*/
 .modal-container.active {
-    opacity: 1;
-    visibility: visible;
+	display: block;
+	opacity: 1;
+	visibility: visible;
 }
 
 /*モーダル枠の指定*/
 .modal-body {
-    position: relative;
-    display: inline-block;
-    vertical-align: middle;
-    max-width: 800px;
-    width: 90%;
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	max-width: 800px;
+	width: 90%;
 }
 
 /*モーダルを閉じるボタンの指定*/
 .modal-close {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    top: -40px;
-    right: -40px;
-    width: 40px;
-    height: 40px;
-    font-size: 40px;
-    color: #fff;
-    cursor: pointer;
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: -40px;
+	right: -40px;
+	width: 40px;
+	height: 40px;
+	font-size: 40px;
+	color: #fff;
+	cursor: pointer;
 }
 
 /*モーダル内のコンテンツの指定*/
 .modal-content {
-    background: #fff;
-    border-radius: 10px;
-    text-align: left;
-    padding: 30px;
-    text-shadow: none;
-    color: #000;
+	background: #fff;
+	border-radius: 10px;
+	text-align: left;
+	padding: 30px;
+	text-shadow: none;
+	color: #000;
 }
 
 .kaisetsu {
-    padding: 15px 0 30px 150px;
+	padding: 15px 0 30px 150px;
 }
 
 .red {
-    color: red;
-    text-align: center;
-    font-size: 28px;
+	color: red;
+	text-align: center;
+	font-size: 28px;
 }
 
 .attention {
-    color: red;
-    text-align: center;
-    font-size: 18px !important;
-    text-shadow: none;
-    background: rgba(255, 255, 255, 0.65);
-    margin: 0 0 3% 0;
+	color: red;
+	text-align: center;
+	font-size: 18px !important;
+	text-shadow: none;
+	background: rgba(255, 255, 255, 0.65);
+	margin: 0 0 3% 0;
 }
 
 .right {
-    text-align: right;
+	text-align: right;
 }
 
 .ans_pht {
-    text-align: center;
+	text-align: center;
 }
 
 .ans_pht img {
-    border-radius: 10px;
-    text-align: center;
-    max-width: 370px;
+	border-radius: 10px;
+	text-align: center;
+	max-width: 370px;
 }
 
 .btn_next {
-    width: 180px;
-    height: auto;
-    border: none;
+	width: 180px;
+	height: auto;
+	border: none;
 }
 
 .tbl_wrap {
-    position: absolute;
+	position: absolute;
 
-    left: 50%;
-    transform: translateY(0%) translateX(-50%);
-    -webkit- transform: translateY(0%) translateX(-50%);
+	left: 50%;
+	transform: translateY(0%) translateX(-50%);
+	-webkit- transform: translateY(0%) translateX(-50%);
 }
 
 .tbl {
-    width: 800px;
-    background: rgba(255, 255, 255, 0.65);
-    border-top: 1px solid #888;
-    border-right: 1px solid #888;
-    color: initial;
-    text-shadow: none;
+	width: 800px;
+	background: rgba(255, 255, 255, 0.65);
+	border-top: 1px solid #888;
+	border-right: 1px solid #888;
+	color: initial;
+	text-shadow: none;
 }
 
 .tbl th,
 .tbl td {
-    border-bottom: 1px solid #888;
-    border-left: 1px solid #888;
-    padding: 5px;
-    text-align: center;
+	border-bottom: 1px solid #888;
+	border-left: 1px solid #888;
+	padding: 5px;
+	text-align: center;
 }
 
 .result h1 {
-    text-align: center; 
-    width: 30%;
+	text-align: center;
+	width: 30%;
 }
 
-.result h1 img{
-    filter:none;
-    width: 300px;
+.result h1 img {
+	filter: none;
+	width: 300px;
 }
 
 .nav_area {
-    padding: 20px 0;
-    justify-content: space-around;
+	padding: 20px 0;
+	justify-content: space-around;
 }
 
 /* btn */
 .btn_nav a {
-    background: #eee;
-    border-radius: 10px;
-    position: relative;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 0 auto;
-    max-width: 280px;
-    padding: 10px 40px;
-    color: #313131;
-    transition: 0.3s ease-in-out;
-    font-weight: 500;
-    text-shadow: none;
+	background: #eee;
+	border-radius: 10px;
+	position: relative;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	margin: 0 auto;
+	max-width: 280px;
+	padding: 10px 40px;
+	color: #313131;
+	transition: 0.3s ease-in-out;
+	font-weight: 500;
+	text-shadow: none;
 }
 
 .btn_nav a:hover {
-    background: #313131;
-    color: #FFF;
+	background: #313131;
+	color: #FFF;
 }
 
 .btn_nav a:after {
-    content: '';
-    width: 5px;
-    height: 5px;
-    border-top: 3px solid #313131;
-    border-right: 3px solid #313131;
-    transform: rotate(45deg) translateY(-50%);
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    border-radius: 1px;
-    transition: 0.3s ease-in-out;
+	content: '';
+	width: 5px;
+	height: 5px;
+	border-top: 3px solid #313131;
+	border-right: 3px solid #313131;
+	transform: rotate(45deg) translateY(-50%);
+	position: absolute;
+	top: 50%;
+	right: 20px;
+	border-radius: 1px;
+	transition: 0.3s ease-in-out;
 }
 
 .btn_nav a:hover:after {
-    border-color: #FFF;
+	border-color: #FFF;
 }
+
 /*btn_end*/
 
 .menu_btn {
-    justify-content: center;
+	justify-content: center;
 }
 
-.menu_btn a{
-    margin: 0 50px;
-    min-width: 280px;
+.menu_btn a {
+	margin: 0 50px;
+	min-width: 280px;
 }
 
 
 .nemu .naka,
 .goal .naka,
 .over .naka {
-    width: 90%;
+	width: 90%;
 }
 
 .goal_txt {
-    padding: 50px 50px 30px 50px;
-    border-radius: 5px;
-    border: 3px solid #fff;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #fff;
-    position: relative;
+	padding: 50px 50px 30px 50px;
+	border-radius: 5px;
+	border: 3px solid #fff;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	position: relative;
 }
 
 .score_board {
-    background: url(/searchinghome/images/paper.png);
-    background-size: cover;
-    width: 410px;
-    height: 360px;
-    position: absolute;
-    bottom: -50px;
-    right: 0px;
-    padding: 140px 80px 80px 80px;
-    text-align: center;
-    text-shadow: none;
-    color: #3f0101;
+	background: url(/searchinghome/images/paper.png);
+	background-size: cover;
+	width: 410px;
+	height: 360px;
+	position: absolute;
+	bottom: -50px;
+	right: 0px;
+	padding: 140px 80px 80px 80px;
+	text-align: center;
+	text-shadow: none;
+	color: #3f0101;
 }
 
 .typeWriter>span {
-    border-right: 2px solid;
-    animation: caret 1s steps(1) infinite;
+	border-right: 2px solid;
+	animation: caret 1s steps(1) infinite;
 }
 
 @keyframes caret {
-    50% {
-        border-color: transparent;
-    }
+	50% {
+		border-color: transparent;
+	}
 }
