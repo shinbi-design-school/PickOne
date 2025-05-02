@@ -15,13 +15,6 @@
         <h1><img src="${pageContext.request.contextPath}/images/ttl_tadaima.png" alt="ただいまをさがして"></h1>
 
         <div class="login_form">
-
-            <!-- エラーメッセージの表示 -->
-            <% String error = (String) request.getAttribute("error"); %>
-            <% if (error != null && !error.isEmpty()) { %>
-                <p class="error"><%= error %></p>
-            <% } %>
-
             <!-- ログインフォーム -->
             <form action="login" method="post" class="mar_B5">
                 <p>メールアドレス</p>

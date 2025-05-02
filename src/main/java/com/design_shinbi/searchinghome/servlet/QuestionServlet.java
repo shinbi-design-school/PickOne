@@ -61,7 +61,7 @@ public class QuestionServlet extends HttpServlet {
 	        session.setAttribute("score", score);
 	    }
 
-	    // 「次へ」クリック時に進行
+	    // 「次の問題へ」クリック時に進行
 	    if ("true".equals(request.getParameter("next"))) {
 	        currentIndex++;
 	        session.setAttribute("currentIndex", currentIndex);
@@ -106,10 +106,6 @@ public class QuestionServlet extends HttpServlet {
 	    boolean isLast = currentIndex == (list.size() - 1);
 	    request.setAttribute("isLastQuestion", isLast);
 
-	    // デバッグログ
-	    System.out.println("【DEBUG】GET時のcurrentIndex: " + currentIndex);
-	    System.out.println("【DEBUG】GET時のスコア: " + session.getAttribute("score"));
-
 	    request.getRequestDispatcher("/WEB-INF/jsp/question.jsp").forward(request, response);
 	}
 
@@ -153,14 +149,12 @@ public class QuestionServlet extends HttpServlet {
         Question question = list.get(currentIndex);
         String answerStr = request.getParameter("answer");
         Integer selected = null;
-        boolean isCorrect = false;
 
         if (answerStr != null && !answerStr.trim().isEmpty()) {
             try {
                 selected = Integer.parseInt(answerStr);
 
                 if (selected == question.getCorrectChoice()) {
-                    isCorrect = true;
                     score += 10;
 
                     Integer correctStreak = (Integer) session.getAttribute("correctStreak");
@@ -201,15 +195,15 @@ public class QuestionServlet extends HttpServlet {
             log("未選択 or null が送信されました");
         }
 
-        // スコアとインデックスの更新（重要！）
+        // スコアとインデックスの更新
         session.setAttribute("score", score);
         session.setAttribute("currentIndex", currentIndex);
 
-        // デバッグログ
+        /* デバッグログ
         System.out.println("【DEBUG】POST後のスコア: " + score);
         System.out.println("【DEBUG】POST後のcurrentIndex: " + currentIndex);
         System.out.println("【DEBUG】正解か？: " + isCorrect);
-
+        */
         response.sendRedirect("question?next=true");
     }
 }

@@ -59,6 +59,7 @@ public class TopServlet extends HttpServlet {
 	            session.removeAttribute("scoreSaved");
 	            session.removeAttribute("epilogueText");
 	            session.removeAttribute("catName"); 
+	            session.removeAttribute("items");
 	        }
 	        request.getRequestDispatcher("/WEB-INF/jsp/top.jsp").forward(request, response); 
 	    }

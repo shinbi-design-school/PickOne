@@ -23,7 +23,6 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // ログインページの表示
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
         dispatcher.forward(request, response);
     }
@@ -50,6 +49,7 @@ public class LoginServlet extends HttpServlet {
                 if(user == null) {
                 	jsp = "/WEB-INF/jsp/login-error.jsp";
                 }
+                if(jsp != null)request.getRequestDispatcher(jsp).forward(request, response);
 	
 	            HttpSession oldSession = request.getSession(false);
 	            if(oldSession != null) {

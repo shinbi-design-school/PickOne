@@ -1,12 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%
-String contextPath = request.getContextPath();
-request.setAttribute("title", "ユーザー登録");
+	String contextPath = request.getContextPath();
+	request.setAttribute("title", "ユーザー登録");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="head.jsp" />
+    <jsp:include page="head.jsp" />
 </head>
 <body>
 	<header></header>
@@ -15,7 +15,6 @@ request.setAttribute("title", "ユーザー登録");
 			<img src="${pageContext.request.contextPath}/images/ttl_tadaima.png"
 				alt="ただいまをさがして">
 		</h1>
-
 		<div class="login_form">
 			<form action="register" method="post">
 				<p>名前</p>
