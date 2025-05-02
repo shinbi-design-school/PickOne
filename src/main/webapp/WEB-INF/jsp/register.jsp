@@ -23,13 +23,11 @@
 				<input type="text" name="email" required>
 				<p>パスワード</p>
 				<input type="password" name="password" required>
-				<div class="flex_box">
 				<input type="submit" value="登録">
 			</form>
 			<form action="login" method="get">
 				<input type="submit" value="ログイン">
 			</form>
-		</div>
 		</div>
 	</main>
 </body>

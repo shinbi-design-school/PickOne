@@ -47,7 +47,8 @@
             <p><%= question.getQuestionText() %></p>
         </div>
 
-        <form id="answerForm" action="question" method="post">
+
+        <form id="answerForm" action="question" method="post" class="flex_box">
             <input type="hidden" name="answer" id="answerInput">
             <div class="a_area flex_box">
                 <a class="a_box modal-open" href="#" data-answer="1">
@@ -67,13 +68,14 @@
                     <p><%= question.getChoice4() %></p>
                 </a>
             </div>
-        </form>
-
-        <div class="op_box">
+            <div class="op_box">
             <div class="time_box"><p class="naka"><%= totalTime %></p></div>
             <a href="#" class="mttb_box" id="matatabiUsage"><img src="${pageContext.request.contextPath}/images/matatabi.png">× <%= items.get("matatabi") %></a>
             <a href="#" class="tyuru_box" id="churuUsage"><img src="${pageContext.request.contextPath}/images/tyu-ru.png">× <%= items.get("churu") %></a>
         </div>
+        </form>
+
+        
 
         <img src="${pageContext.request.contextPath}/images/cat_ques.png" class="cat_img02">
 
