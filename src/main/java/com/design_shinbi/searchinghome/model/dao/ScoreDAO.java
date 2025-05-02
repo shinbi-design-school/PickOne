@@ -36,7 +36,7 @@ public class ScoreDAO {
 		List<Score> list = new ArrayList<Score>();
 		
 		String sql = "SELECT * FROM scores WHERE user_id = ? "
-				+ "ORDER BY played_at DESC";
+				+ "ORDER BY played_at DESC LIMIT 10";
 		
 		PreparedStatement statement = this.connection.prepareStatement(sql);
 		statement.setInt(1, userId);

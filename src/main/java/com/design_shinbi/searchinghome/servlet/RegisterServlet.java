@@ -55,7 +55,7 @@ public class RegisterServlet extends HttpServlet {
 			}
 		}
 		request.setAttribute("error", error);
-        request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/register-error.jsp").forward(request, response);
 	}
 
 }
