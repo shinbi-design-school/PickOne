@@ -16,7 +16,7 @@
         <h1><img src="${pageContext.request.contextPath}/images/ttl_tadaima.png"></h1>
         <div class="login_form">
             <form action="register" method="post">
-                <p class="attention">※ <%= error %><br>もう一度入力してください。</p>
+                <p class="attention">※ <%= error %></p>
                 <p>名前</p>
                 <input type="text" name="name" required>
                 <p>メールアドレス</p>
@@ -26,6 +26,10 @@
                 <div class="flex_box">
                 <input type="submit" value="登録">
             </form>
+            <form action="login" method="get">
+				<input type="submit" value="ログイン">
+			</form>
+			
         </div>
     </main>
     <footer></footer>

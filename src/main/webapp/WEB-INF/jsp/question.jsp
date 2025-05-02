@@ -100,7 +100,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
     window.correctChoice = <%= question.getCorrectChoice() %>;
-</script>
+    </script>
     <script src="${pageContext.request.contextPath}/js/question.js"></script>
     <script src="${pageContext.request.contextPath}/js/item.js">
 </body>

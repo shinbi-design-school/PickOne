@@ -139,9 +139,9 @@ public class QuestionServlet extends HttpServlet {
 
             // アイテム使用
             if (useItem.equals("matatabi") && items.get("matatabi") > 0) {
-                items.put("matatabi", items.get("matatabi") - 1);  // マタタビを1つ減らす
+                items.put("matatabi", items.get("matatabi") - 1);  
             } else if (useItem.equals("churu") && items.get("churu") > 0) {
-                items.put("churu", items.get("churu") - 1);  // チュールを1つ減らす
+                items.put("churu", items.get("churu") - 1);  
             }
             session.setAttribute("items", items);
         }
@@ -194,16 +194,8 @@ public class QuestionServlet extends HttpServlet {
         } else {
             log("未選択 or null が送信されました");
         }
-
-        // スコアとインデックスの更新
         session.setAttribute("score", score);
         session.setAttribute("currentIndex", currentIndex);
-
-        /* デバッグログ
-        System.out.println("【DEBUG】POST後のスコア: " + score);
-        System.out.println("【DEBUG】POST後のcurrentIndex: " + currentIndex);
-        System.out.println("【DEBUG】正解か？: " + isCorrect);
-        */
         response.sendRedirect("question?next=true");
     }
 }

@@ -47,5 +47,11 @@
          <img src="${pageContext.request.contextPath}/images/cat_nobi02.png" class="cat_img02">
          </main>
          <footer></footer>
+         <script src="<%= request.getContextPath() %>/js/audioController.js"></script>
+         <script>
+        window.onload = function() {
+            playBGM('<%= request.getContextPath() %>/audio/index.mp3');
+        };
+    </script>
 </body>
 </html>
