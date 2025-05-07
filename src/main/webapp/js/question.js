@@ -5,18 +5,20 @@ $(function () {
 
     startTimer();
 
-    function startTimer() {
-        timer = setInterval(() => {
-            timeLeft--;
-            updateTimerDisplay();
+	function startTimer() {
+	    timeLeft = baseTime * timeMultiplier;  // 初期状態に戻す
+	    timer = setInterval(() => {
+	        timeLeft--;
+	        updateTimerDisplay();
 
-            if (timeLeft <= 0) {
-                clearInterval(timer);
-                $('#answerInput').val(""); // 未選択として扱う
-                $('.modal-container').addClass('active');
-            }
-        }, 1000);
-    }
+	        if (timeLeft <= 0) {
+	            clearInterval(timer);
+	            $('#answerInput').val(""); // 未選択として扱う
+	            $('.modal-container').addClass('active');
+	        }
+	    }, 1000);
+	}
+
 
     function updateTimerDisplay() {
         $('.time_box p').text(timeLeft);

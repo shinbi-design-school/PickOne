@@ -27,7 +27,7 @@
     }
 
     int baseTime = 10;
-    int totalTime = baseTime * timeMultiplier;
+    int totalTime = baseTime;
     session.setAttribute("timeMultiplier", 1);
 %>
 <!DOCTYPE html>
