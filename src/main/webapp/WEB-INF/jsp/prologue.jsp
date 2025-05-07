@@ -39,9 +39,11 @@
     </main>
     <jsp:include page="footer.jsp" />
     <script>
-        window.onload = function() {
-            requestBGM('<%= request.getContextPath() %>/audio/prologue.mp3');
-        };
+    window.onload = function() {
+        if (parent && parent.requestBGM) {
+            parent.requestBGM('<%= request.getContextPath() %>/audio/prologue.mp3');
+        }
+    };
     </script>
     <script src="js/typing.js"></script>
 </body>

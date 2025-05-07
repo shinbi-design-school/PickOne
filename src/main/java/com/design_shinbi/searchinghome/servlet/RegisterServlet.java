@@ -46,6 +46,7 @@ public class RegisterServlet extends HttpServlet {
 					return;
 				}
 			}catch(Exception e) {
+				e.printStackTrace();
 				throw new ServletException("登録時にエラーが発生しました。");
 			}
 		}
