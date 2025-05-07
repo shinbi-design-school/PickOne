@@ -169,6 +169,13 @@ h1 img {
 	left: 30px;
 }
 
+.ttl_over {
+	width: 500px;
+	position: absolute;
+	top: -50px;
+	left: 30px;
+}
+
 .cat_img {
 	width: 350px;
 	left: 16%;
