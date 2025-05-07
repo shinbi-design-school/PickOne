@@ -1,12 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<footer></footer>
 
-</body>
-</html>
+<!-- 非表示の iframe（BGM 再生用） -->
+<iframe id="bgmFrame"
+        src="${pageContext.request.contextPath}/pages/bgm_player.jsp"
+        style="display:none;"
+        allow="autoplay"></iframe>
+
+<script src="${pageContext.request.contextPath}/js/audioController.js"></script>
+
+<script>
+function requestBGM(src) {
+    const frame = document.getElementById("bgmFrame");
+    if (frame && frame.contentWindow) {
+        frame.contentWindow.postMessage({ type: "PLAY_BGM", src: src }, "*");
+    }
+}
+</script>
+

@@ -16,7 +16,7 @@
 				alt="ただいまをさがして">
 		</h1>
 		<div class="login_form">
-			<form action="register" method="post">
+			<form action="register" method="post" target="content">
 				<p>名前</p>
 				<input type="text" name="name" required>
 				<p>メールアドレス</p>
@@ -25,10 +25,18 @@
 				<input type="password" name="password" required>
 				<input type="submit" value="登録">
 			</form>
-			<form action="login" method="get">
+			<form action="login" method="get" target="content">
 				<input type="submit" value="ログイン">
 			</form>
 		</div>
 	</main>
+	<script src="${pageContext.request.contextPath}/js/audioController.js"></script>
+	<script>
+        window.onload = function() {
+            if (parent && parent.requestBGM) {
+                parent.requestBGM('<%= request.getContextPath() %>/audio/index.mp3');
+            }
+        };
+    </script>
 </body>
 </html>

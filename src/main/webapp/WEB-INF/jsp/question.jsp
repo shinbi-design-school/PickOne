@@ -48,7 +48,7 @@
         </div>
 
 
-        <form id="answerForm" action="question" method="post" class="flex_box">
+        <form id="answerForm" action="question" method="post" class="flex_box" target="content">
             <input type="hidden" name="answer" id="answerInput">
             <div class="a_area flex_box">
                 <a class="a_box modal-open" href="#" data-answer="1">
@@ -100,6 +100,17 @@
     </main>
     
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        const contextPath = '<%= request.getContextPath() %>';
+    </script>
+    <script src="${pageContext.request.contextPath}/js/audioController.js"></script>
+	<script>
+        window.onload = function() {
+            if (parent && parent.requestBGM) {
+                parent.requestBGM('<%= request.getContextPath() %>/audio/question.mp3');
+            }
+        };
+    </script>
     <script>
     window.correctChoice = <%= question.getCorrectChoice() %>;
     </script>

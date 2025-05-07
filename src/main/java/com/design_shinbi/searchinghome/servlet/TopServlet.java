@@ -27,7 +27,8 @@ public class TopServlet extends HttpServlet {
 	    	User user = (User)session.getAttribute(Const.LOGIN_USER_KEY); 	
 	    	String jsp = null;
 	    	if(user == null) {
-	    		jsp = "/WEB-INF/jsp/register.jsp";
+	    		request.setAttribute("title", "ただいまをさがして");
+	    		jsp = "/WEB-INF/jsp/frame.jsp";
 	    	}
 	    	else {
 	    		try{
@@ -60,6 +61,7 @@ public class TopServlet extends HttpServlet {
 	            session.removeAttribute("epilogueText");
 	            session.removeAttribute("catName"); 
 	            session.removeAttribute("items");
+	            session.removeAttribute("correctStreak");
 	        }
 	        request.getRequestDispatcher("/WEB-INF/jsp/top.jsp").forward(request, response); 
 	    }

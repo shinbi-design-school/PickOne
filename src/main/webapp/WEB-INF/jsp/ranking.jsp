@@ -46,12 +46,19 @@
         }
     %>
             <div class="flex_box nav_area btn_nav">
-                <a href="${pageContext.request.contextPath}/top">
+                <a href="${pageContext.request.contextPath}/top" target="content">
                     メニューへ戻る</a>
                 </a>
             </div>
     </main>
-    <footer></footer>
+    <script src="${pageContext.request.contextPath}/js/audioController.js"></script>
+	<script>
+        window.onload = function() {
+            if (parent && parent.requestBGM) {
+                parent.requestBGM('<%= request.getContextPath() %>/audio/index.mp3');
+            }
+        };
+    </script>
 </body>
 </html>
 

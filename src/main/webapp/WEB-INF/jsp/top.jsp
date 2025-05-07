@@ -33,24 +33,25 @@
                 </p>
             </div>
             <div class="flex_box nav_area btn_nav menu_btn" >
-             <a href="${pageContext.request.contextPath}/history">
+             <a href="${pageContext.request.contextPath}/history" target="content">
                  プレイ履歴</a>
              </a>
-             <a href="${pageContext.request.contextPath}/naming">
+             <a href="${pageContext.request.contextPath}/naming" target="content">
                  スタート</a>
              </a>
-             <a href="${pageContext.request.contextPath}/ranking">
+             <a href="${pageContext.request.contextPath}/ranking" target="content">
                  ランキング</a>
              </a>
              </div>
          </div>
          <img src="${pageContext.request.contextPath}/images/cat_nobi02.png" class="cat_img02">
          </main>
-         <footer></footer>
-         <script src="<%= request.getContextPath() %>/js/audioController.js"></script>
-         <script>
+         <script src="${pageContext.request.contextPath}/js/audioController.js"></script>
+	<script>
         window.onload = function() {
-            playBGM('<%= request.getContextPath() %>/audio/index.mp3');
+            if (parent && parent.requestBGM) {
+                parent.requestBGM('<%= request.getContextPath() %>/audio/index.mp3');
+            }
         };
     </script>
 </body>

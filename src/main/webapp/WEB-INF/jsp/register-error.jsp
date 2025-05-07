@@ -32,6 +32,13 @@
 			
         </div>
     </main>
-    <footer></footer>
+    <script src="${pageContext.request.contextPath}/js/audioController.js"></script>
+	<script>
+        window.onload = function() {
+            if (parent && parent.requestBGM) {
+                parent.requestBGM('<%= request.getContextPath() %>/audio/index.mp3');
+            }
+        };
+    </script>
 </body>
 </html>

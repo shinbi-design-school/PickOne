@@ -16,7 +16,7 @@
 
         <div class="login_form">
             <!-- ログインフォーム -->
-            <form action="login" method="post" class="mar_B5">
+            <form action="login" method="post" class="mar_B5" target="content">
                 <p>メールアドレス</p>
                 <input type="text" name="email" required>
 
@@ -26,11 +26,18 @@
                 <input type="submit" value="ログイン">
             </form>
             <!-- 新規登録フォーム -->
-            <form action="register" method="get">
+            <form action="register" method="get" target="content">
                 <input type="submit" value="新規登録">
             </form>
         </div>
     </main>
-    <footer></footer>
+    <script src="${pageContext.request.contextPath}/js/audioController.js"></script>
+	<script>
+        window.onload = function() {
+            if (parent && parent.requestBGM) {
+                parent.requestBGM('<%= request.getContextPath() %>/audio/index.mp3');
+            }
+        };
+    </script>
 </body>
 </html>

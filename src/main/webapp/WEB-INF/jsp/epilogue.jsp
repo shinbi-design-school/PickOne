@@ -41,7 +41,7 @@
                 <p>プレイ日時<br><%= formattedDate %></p>
             </div>
             <div class="login_form">
-                <form action="top" method="post">
+                <form action="top" method="post" target="content">
                 <input type="submit" value="トップへ">
             </form>
             </div>
@@ -49,7 +49,14 @@
         
         <img src="${pageContext.request.contextPath}/images/cat_home.png" class="cat_img04">
     </main>
-    <footer></footer>
+    <script src="${pageContext.request.contextPath}/js/audioController.js"></script>
+	<script>
+        window.onload = function() {
+            if (parent && parent.requestBGM) {
+                parent.requestBGM('<%= request.getContextPath() %>/audio/goal.mp3');
+            }
+        };
+    </script>
     
     <script src="js/typing.js"></script>
 </body>

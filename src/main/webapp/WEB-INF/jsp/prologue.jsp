@@ -29,7 +29,7 @@
                 </p>
             </div>
             <div class="nav_area btn_nav">
-                <a href="${pageContext.request.contextPath}/question">
+                <a href="${pageContext.request.contextPath}/question" target="content">
                     次へ</a>
                 </a>
             </div>
@@ -37,7 +37,12 @@
         <img src="${pageContext.request.contextPath}/images/cat_jump.png" class="cat_img02 fuwari">
         <img src="${pageContext.request.contextPath}/images/icegif-862.gif" class="tyou_img">
     </main>
-    <footer></footer>
+    <jsp:include page="footer.jsp" />
+    <script>
+        window.onload = function() {
+            requestBGM('<%= request.getContextPath() %>/audio/prologue.mp3');
+        };
+    </script>
     <script src="js/typing.js"></script>
 </body>
 </html>
