@@ -113,6 +113,18 @@ h1 img {
 	font-size: 20px;
 }
 
+.prolo_txt {
+	padding: 70px;
+	border-radius: 5px;
+	border: 3px solid #fff;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #fff;
+	width: 80%;
+	position: relative;
+	min-height: 500px;
+	margin: 0 auto 20px;
+}
+
 .pro_txt {
 	padding: 70px;
 	border-radius: 5px;
@@ -224,7 +236,6 @@ h1 img {
 	left: 50%;
 	bottom: -80px;
 	transform: translateY(0%) translateX(-50%);
-	-webkit- transform: translateY(0%) translateX(-50%);
 	border: none;
 }
 
@@ -460,7 +471,7 @@ h1 img {
 
 	left: 50%;
 	transform: translateY(0%) translateX(-50%);
-	-webkit- transform: translateY(0%) translateX(-50%);
+	
 }
 
 .tbl {

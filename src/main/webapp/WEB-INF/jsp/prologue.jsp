@@ -13,7 +13,7 @@
     <header></header>
     <main class="prologue">
         <div class="naka">
-            <div class="pro_txt">
+            <div class="prolo_txt">
             <img src="${pageContext.request.contextPath}/images/prologue.png" class="ttl_pro">
                 <p class="typeWriter">
                 ポカポカ陽気に誘われて、森へお出かけした<%= catName %>ちゃん。<br>
