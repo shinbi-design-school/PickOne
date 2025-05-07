@@ -33,28 +33,58 @@ public class UserDAO {
 	}	
 
 	
-	public void add(String name, String email, String password, boolean admin)
-	         throws NoSuchAlgorithmException, SQLException{
-		String salt = PasswordUtil.generateSalt();
-		String hashedPassword = PasswordUtil.hashPasswordWithSaltPepper(password, salt);
-		Timestamp now = new Timestamp(System.currentTimeMillis());
-		
-		String sql = "INSERT INTO users(name, email, password, salt, "
-				+ "admin, created_at, updated_at)"
-				+"values(?, ?, ?, ?, ?, ?, ?)";
-		PreparedStatement statement = this.connection.prepareStatement(sql);
-		
-		statement.setString(1, name);
-		statement.setString(2, email);
-		statement.setString(3, hashedPassword);
-		statement.setString(4, salt);
-		statement.setBoolean(5,  admin);
-		statement.setTimestamp(6, now);
-		statement.setTimestamp(7, now);
-		
-		statement.executeUpdate();
-		statement.close();
+	public User add(String name, String email, String password, boolean admin)
+	        throws NoSuchAlgorithmException, SQLException {
+	    String salt = PasswordUtil.generateSalt();
+	    String hashedPassword = PasswordUtil.hashPasswordWithSaltPepper(password, salt);
+	    Timestamp now = new Timestamp(System.currentTimeMillis());
+	    
+	    // INSERT文
+	    String sql = "INSERT INTO users(name, email, password, salt, "
+	            + "admin, created_at, updated_at) "
+	            + "values(?, ?, ?, ?, ?, ?, ?)";
+	    
+	    // PreparedStatementの作成（自動生成されたキーを取得するための設定）
+	    PreparedStatement statement = this.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+	    
+	    statement.setString(1, name);
+	    statement.setString(2, email);
+	    statement.setString(3, hashedPassword);
+	    statement.setString(4, salt);
+	    statement.setBoolean(5, admin);
+	    statement.setTimestamp(6, now);
+	    statement.setTimestamp(7, now);
+	    
+	    // INSERT文の実行
+	    statement.executeUpdate();
+	    
+	    // 生成されたキー（ID）を取得
+	    ResultSet rs = statement.getGeneratedKeys();
+	    
+	    if (rs.next()) {
+	        // IDを取得
+	        int userId = rs.getInt(1);  // 1は最初のカラム（生成されたID）
+	        
+	        // Userオブジェクトを作成してIDをセット
+	        User user = new User();
+	        user.setId(userId);
+	        user.setName(name);
+	        user.setEmail(email);
+	        user.setPassword(hashedPassword);
+	        user.setAdmin(admin);
+	        
+	        // ステートメントをクローズ
+	        statement.close();
+	        
+	        // 登録したユーザーを返す
+	        return user;
+	    }
+	    
+	    // IDが取得できなかった場合のエラー
+	    throw new SQLException("ユーザーIDの取得に失敗しました。");
 	}
+
+		
 	
 	public void update(User user) throws SQLException{
 		Timestamp now = new Timestamp(System.currentTimeMillis());

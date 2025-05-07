@@ -24,7 +24,7 @@
     <main class="goal">
         <div class="naka">
             <div class="pro_txt">
-                <img src="${pageContext.request.contextPath}/images/goal.png" class="ttl_goal">
+                <img src="${pageContext.request.contextPath}/images/over_ttl.png" class="ttl_goal">
                 <p class="typeWriter">
                     「うぅ…ダメだったのかな…家に帰りたい…お母さんに会いたい…」<br>
                     がっかりしてうつむいた<%= catName %>ちゃんのまわりに、森の風がふわっと吹き抜けます。<br>

@@ -40,12 +40,7 @@ public class RegisterServlet extends HttpServlet {
 					error = "このメールアドレスは既に使われています。";
 				}
 				else {
-					User user = new User();
-					user.setName(name);
-					user.setEmail(email);
-					user.setPassword(password);
-					user.setAdmin(false);
-					dao.add(name, email, password, false);
+					User user = dao.add(name, email, password, false);
 					request.getSession().setAttribute(Const.LOGIN_USER_KEY, user);
 					response.sendRedirect("top");
 					return;
