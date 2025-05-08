@@ -196,6 +196,8 @@ public class QuestionServlet extends HttpServlet {
         session.setAttribute("score", score);
         session.setAttribute("currentIndex", currentIndex);
         session.setAttribute("timeMultiplier", 1);
+        //System.out.println(score);
+        //System.out.println(currentIndex);
         response.sendRedirect("question?next=true");
     }
 }

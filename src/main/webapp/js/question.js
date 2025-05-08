@@ -134,7 +134,7 @@ $(function () {
 		   }, 300); 
     });
 	
-	$('.go-next, .go-next img').on('click', function (e) {
+	$('.go-next').on('click', function (e) {
 	    e.preventDefault();
 	    playEffect(contextPath + "/audio/next.mp3");
 
