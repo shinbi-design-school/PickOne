@@ -127,21 +127,10 @@ $(function () {
     $('.go-next').on('click', function (e) {
         e.preventDefault();
 		e.stopPropagation()
-		console.log("Next button clicked");
         playEffect(contextPath + "/audio/next.mp3"); // 次の問題へ音
 		setTimeout(function () {
 		       $('#answerForm').submit();
 		   }, 300); 
     });
-	
-	$('.go-next').on('click', function (e) {
-	    e.preventDefault();
-	    playEffect(contextPath + "/audio/next.mp3");
-
-	    setTimeout(function () {
-	        $('#answerForm').submit();
-	    }, 300); 
-	});
-
 });
 

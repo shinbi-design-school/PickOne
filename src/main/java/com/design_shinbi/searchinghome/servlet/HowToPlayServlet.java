@@ -1,3 +1,4 @@
+/*
 package com.design_shinbi.searchinghome.servlet;
 
 import java.io.IOException;
@@ -16,3 +17,4 @@ public class HowToPlayServlet extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/jsp/howtoplay.jsp").forward(request, response);
 	}
 }
+*/
