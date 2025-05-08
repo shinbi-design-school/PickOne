@@ -68,6 +68,11 @@
                     <p><%= question.getChoice4() %></p>
                 </a>
             </div>
+            <div class="next-button-container" style="display: none; text-align: center; margin-top: 20px;">
+			    <a href="#" class="go-next">
+			        <%= nextButtonImage %>
+			    </a>
+			</div>
             <div class="op_box">
             <div class="time_box"><p class="naka"><%= totalTime %></p></div>
             <a href="#" class="mttb_box" id="matatabiUsage"><img src="${pageContext.request.contextPath}/images/matatabi.png">× <%= items.get("matatabi") %></a>
@@ -100,6 +105,10 @@
     </main>
     
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+    const baseTime = <%= baseTime %>;
+    const timeMultiplier = <%= timeMultiplier %>;
+    </script>
     <script>
         const contextPath = '<%= request.getContextPath() %>';
     </script>

@@ -105,7 +105,6 @@ public class QuestionServlet extends HttpServlet {
 	    request.setAttribute("question", question);
 	    boolean isLast = currentIndex == (list.size() - 1);
 	    request.setAttribute("isLastQuestion", isLast);
-
 	    request.getRequestDispatcher("/WEB-INF/jsp/question.jsp").forward(request, response);
 	}
 
@@ -196,6 +195,7 @@ public class QuestionServlet extends HttpServlet {
         }
         session.setAttribute("score", score);
         session.setAttribute("currentIndex", currentIndex);
+        session.setAttribute("timeMultiplier", 1);
         response.sendRedirect("question?next=true");
     }
 }

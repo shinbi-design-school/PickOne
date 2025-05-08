@@ -1,5 +1,5 @@
 $(function () {
-    let timeLeft = parseInt($('.time_box p').text().trim());
+    let timeLeft = baseTime * timeMultiplier;
     let timer;
     let usedItemThisQuestion = false;
 
@@ -53,6 +53,7 @@ $(function () {
             type: "POST",
             data: { item: item },
             success: function () {
+				$('#answerInput').val("");
                 const $itemBox = item === 'churu' ? $('#churuUsage') : $('#matatabiUsage');
                 let countText = $itemBox.text();
                 let count = parseInt(countText.match(/\d+/));
@@ -95,13 +96,21 @@ $(function () {
 
         useItem('matatabi');
     });
+	
+	let hasAnswered = false;
 
     $('.a_box').on('click', function (e) {
         e.preventDefault();
+		if(hasAnswered) return;
+		
+		hasAnswered = true;
+		$('.op_box').hide();
         stopTimer();
         let selectedAnswer = $(this).data('answer');
         $('#answerInput').val(selectedAnswer);
         $('.modal-container').addClass('active');
+		
+		$('.next-button-container').show();
 
         // 正解・不正解に応じて効果音を再生
         if (selectedAnswer === window.correctChoice) {
@@ -117,10 +126,22 @@ $(function () {
 
     $('.go-next').on('click', function (e) {
         e.preventDefault();
+		e.stopPropagation()
+		console.log("Next button clicked");
         playEffect(contextPath + "/audio/next.mp3"); // 次の問題へ音
 		setTimeout(function () {
 		       $('#answerForm').submit();
 		   }, 300); 
     });
+	
+	$('.go-next, .go-next img').on('click', function (e) {
+	    e.preventDefault();
+	    playEffect(contextPath + "/audio/next.mp3");
+
+	    setTimeout(function () {
+	        $('#answerForm').submit();
+	    }, 300); 
+	});
+
 });
 

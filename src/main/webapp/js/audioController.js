@@ -22,6 +22,7 @@ function playEffect(src) {
 }
 
 // ユーザーの操作を待つ
+/*
 document.body.addEventListener('click', function() {
     if (audio) {
         audio.play().catch(err => {
@@ -29,3 +30,4 @@ document.body.addEventListener('click', function() {
         });
     }
 });
+*/
