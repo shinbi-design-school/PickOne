@@ -27,7 +27,7 @@ public class TopServlet extends HttpServlet {
 	    	User user = (User)session.getAttribute(Const.LOGIN_USER_KEY); 	
 	    	String jsp = null;
 	    	if(user == null) {
-	    		request.setAttribute("title", "ただいまをさがして");
+	    		request.setAttribute("title", "ただいまを探して");
 	    		jsp = "/WEB-INF/jsp/frame.jsp";
 	    	}
 	    	else {

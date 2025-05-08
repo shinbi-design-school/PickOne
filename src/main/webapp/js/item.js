@@ -1,16 +1,8 @@
-let timer;
+/*let timer;
 let itemUsed = false;
 
 // アイテム使用処理
-$('#matatabiUsage').click(function() {
-    if (itemUsed) return;
-    if (items.matatabi > 0) {
-        itemUsed = true;
-        $('#matatabiUsage').text('× ' + (items.matatabi - 1)); // 所持数を更新
-        totalTime += 5; // マタタビ使用で時間追加
-        startTimer(); // タイマー再スタート
-    }
-});
+
 
 $('#churuUsage').click(function() {
     if (itemUsed) return;
@@ -39,3 +31,4 @@ function startTimer() {
 
 // 初回のタイマー開始
 startTimer();
+*/

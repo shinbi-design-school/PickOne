@@ -1,22 +1,24 @@
 $(function () {
-    let timeLeft = parseInt($('.time_box p').text().trim());
+    let timeLeft = baseTime * timeMultiplier;
     let timer;
     let usedItemThisQuestion = false;
 
     startTimer();
 
-    function startTimer() {
-        timer = setInterval(() => {
-            timeLeft--;
-            updateTimerDisplay();
+	function startTimer() {
+	    timeLeft = baseTime * timeMultiplier;  // 初期状態に戻す
+	    timer = setInterval(() => {
+	        timeLeft--;
+	        updateTimerDisplay();
 
-            if (timeLeft <= 0) {
-                clearInterval(timer);
-                $('#answerInput').val(""); // 未選択として扱う
-                $('.modal-container').addClass('active');
-            }
-        }, 1000);
-    }
+	        if (timeLeft <= 0) {
+	            clearInterval(timer);
+	            $('#answerInput').val(""); // 未選択として扱う
+	            $('.modal-container').addClass('active');
+	        }
+	    }, 1000);
+	}
+
 
     function updateTimerDisplay() {
         $('.time_box p').text(timeLeft);
@@ -51,6 +53,7 @@ $(function () {
             type: "POST",
             data: { item: item },
             success: function () {
+				$('#answerInput').val("");
                 const $itemBox = item === 'churu' ? $('#churuUsage') : $('#matatabiUsage');
                 let countText = $itemBox.text();
                 let count = parseInt(countText.match(/\d+/));
@@ -93,13 +96,21 @@ $(function () {
 
         useItem('matatabi');
     });
+	
+	let hasAnswered = false;
 
     $('.a_box').on('click', function (e) {
         e.preventDefault();
+		if(hasAnswered) return;
+		
+		hasAnswered = true;
+		$('.op_box').hide();
         stopTimer();
         let selectedAnswer = $(this).data('answer');
         $('#answerInput').val(selectedAnswer);
         $('.modal-container').addClass('active');
+		
+		$('.next-button-container').show();
 
         // 正解・不正解に応じて効果音を再生
         if (selectedAnswer === window.correctChoice) {
@@ -115,6 +126,7 @@ $(function () {
 
     $('.go-next').on('click', function (e) {
         e.preventDefault();
+		e.stopPropagation()
         playEffect(contextPath + "/audio/next.mp3"); // 次の問題へ音
 		setTimeout(function () {
 		       $('#answerForm').submit();
