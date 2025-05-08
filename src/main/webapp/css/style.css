@@ -28,7 +28,7 @@ main.goal {
 }
 
 .top h1 {
-	width: 70%;
+	width: 60%;
 	margin: 0 auto;
 	padding: 1.5% 0 1.5% 0;
 }
@@ -45,7 +45,7 @@ h1 img {
 .login_form input[type=text],
 .login_form input[type=password] {
 	width: 100%;
-	padding: 12px 5px;
+	padding: 8px 5px;
 	margin: 0 0 10px 0;
 	border-radius: 5px;
 	border: 3px solid #fff;
@@ -55,7 +55,7 @@ h1 img {
 
 .login_form input[type=submit] {
 	width: 80%;
-	padding: 12px 5px;
+	padding: 8px 5px;
 	margin: 0 10% 10px;
 	border-radius: 5px;
 	border: 3px solid #fff;
@@ -114,26 +114,26 @@ h1 img {
 }
 
 .prolo_txt {
-	padding: 70px;
+	padding: 55px 70px 30px;
 	border-radius: 5px;
 	border: 3px solid #fff;
 	background-color: rgba(0, 0, 0, 0.7);
 	color: #fff;
 	width: 80%;
 	position: relative;
-	min-height: 500px;
+	min-height: 460px;
 	margin: 0 auto 20px;
 }
 
 .pro_txt {
-	padding: 70px;
+	padding: 55px 55px 30px;
 	border-radius: 5px;
 	border: 3px solid #fff;
 	background-color: rgba(0, 0, 0, 0.7);
 	color: #fff;
 	width: 80%;
 	position: relative;
-	min-height: 440px;
+	min-height: 390px;
 	margin: 0 auto 20px;
 }
 
@@ -170,7 +170,7 @@ h1 img {
 }
 
 .ttl_over {
-	width: 500px;
+	width: 460px;
 	position: absolute;
 	top: -50px;
 	left: 30px;
@@ -179,14 +179,14 @@ h1 img {
 .cat_img {
 	width: 350px;
 	left: 16%;
-	bottom: 5%;
+	bottom: 8%;
 	position: absolute;
 }
 
 .cat_img02 {
 	width: 300px;
 	right: 3%;
-	bottom: 5%;
+	bottom: 8%;
 	position: absolute;
 
 }
@@ -198,21 +198,21 @@ h1 img {
 .cat_img03 {
 	width: 150px;
 	left: 1%;
-	bottom: 5%;
+	bottom: 8%;
 	position: absolute;
 }
 
 .cat_img04 {
 	width: 350px;
 	left: 5%;
-	bottom: 5%;
+	bottom: 8%;
 	position: absolute;
 }
 
 .cat_img05 {
 	width: 300px;
 	left: 5%;
-	bottom: 5%;
+	bottom: 8%;
 	position: absolute;
 }
 
@@ -494,7 +494,7 @@ h1 img {
 .tbl td {
 	border-bottom: 1px solid #888;
 	border-left: 1px solid #888;
-	padding: 5px;
+	padding: 2px 5px;
 	text-align: center;
 }
 
@@ -583,12 +583,12 @@ h1 img {
 .score_board {
 	background: url(/searchinghome/images/paper.png);
 	background-size: cover;
-	width: 410px;
-	height: 360px;
+	width: 400px;
+	height: 350px;
 	position: absolute;
 	bottom: -50px;
 	right: 0px;
-	padding: 140px 80px 80px 80px;
+	padding: 130px 70px 0 70px;
 	text-align: center;
 	text-shadow: none;
 	color: #3f0101;
